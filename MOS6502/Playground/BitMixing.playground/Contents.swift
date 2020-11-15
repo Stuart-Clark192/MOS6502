@@ -249,7 +249,7 @@ cpu.a.printRepresentation()
 cpu.runCycle()
 cpu.a.printRepresentation()
 
-enum instructionMode {
+enum InstructionMode {
     case immediate   //  use the value directly following the operand
     case zeroPage
     case zeroPageX
@@ -261,8 +261,8 @@ enum instructionMode {
     case implied
 }
 
-struct instruction {
-    let mode: instructionMode
+struct Instruction {
+    let mode: InstructionMode
     let syntax: String
     let hexCode: UInt8
     let len: Int
@@ -270,10 +270,33 @@ struct instruction {
     let flagsAffected: String
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
+    let description: String
     
     // Add a closure that should be executed for this instruction
 }
 
 
 // Build the instruction table
+class InstructionTable {
+    var instructions: [Instruction] = []
+    
+    func buildInstructions() {
 
+//ADC
+instructions.append(Instruction(mode: .immediate, syntax: "ADC #$44", hexCode: 0x69, len: 2, cycles: 2, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+
+instructions.append(Instruction(mode: .zeroPage, syntax: "ADC $44", hexCode: 0x65, len: 2, cycles: 3, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+
+instructions.append(Instruction(mode: .zeroPageX, syntax: "ADC $44, X", hexCode: 0x75, len: 2, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+
+instructions.append(Instruction(mode: .absolute, syntax: "ADC $4400", hexCode: 0x6D, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+
+instructions.append(Instruction(mode: .absoluteX, syntax: "ADC $4400, X", hexCode: 0x7D, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
+
+instructions.append(Instruction(mode: .absoluteY, syntax: "ADC $4400, Y", hexCode: 0x79, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
+
+instructions.append(Instruction(mode: .indirectX, syntax: "ADC ($44, X)", hexCode: 0x61, len: 2, cycles: 6, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+
+instructions.append(Instruction(mode: .indirectY, syntax: "ADC ($44), Y", hexCode: 0x71, len: 2, cycles: 5, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
+    }
+}

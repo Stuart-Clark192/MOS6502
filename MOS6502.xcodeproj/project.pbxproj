@@ -21,6 +21,7 @@
 		1763644225613F1F00E81FB1 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644125613F1F00E81FB1 /* Memory.swift */; };
 		1763644425613F4300E81FB1 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644325613F4300E81FB1 /* CPU.swift */; };
 		1763644825613FB700E81FB1 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644725613FB700E81FB1 /* Instruction.swift */; };
+		1763644C2561460100E81FB1 /* InstructionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644B2561460100E81FB1 /* InstructionTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		1763644325613F4300E81FB1 /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		1763644725613FB700E81FB1 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		1763644A2561411400E81FB1 /* BitMixing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitMixing.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		1763644B2561460100E81FB1 /* InstructionTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				1763644725613FB700E81FB1 /* Instruction.swift */,
+				1763644B2561460100E81FB1 /* InstructionTable.swift */,
 			);
 			path = Instructions;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1763643F25613E6900E81FB1 /* UInt16Extensions.swift in Sources */,
+				1763644C2561460100E81FB1 /* InstructionTable.swift in Sources */,
 				1763640A25613B4F00E81FB1 /* AppDelegate.swift in Sources */,
 				1763640C25613B4F00E81FB1 /* SceneDelegate.swift in Sources */,
 				1763644825613FB700E81FB1 /* Instruction.swift in Sources */,

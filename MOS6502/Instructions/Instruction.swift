@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum instructionMode {
+enum InstructionMode {
     case immediate   //  use the value directly following the operand
     case zeroPage
     case zeroPageX
@@ -19,8 +19,8 @@ enum instructionMode {
     case implied
 }
 
-struct instruction {
-    let mode: instructionMode
+struct Instruction {
+    let mode: InstructionMode
     let syntax: String
     let hexCode: UInt8
     let len: Int
@@ -28,6 +28,7 @@ struct instruction {
     let flagsAffected: String
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
+    let description: String
     
     // Add a closure that should be executed for this instruction
 }
