@@ -15,6 +15,12 @@
 		1763641625613B5000E81FB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1763641425613B5000E81FB1 /* LaunchScreen.storyboard */; };
 		1763642125613B5000E81FB1 /* MOS6502Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763642025613B5000E81FB1 /* MOS6502Tests.swift */; };
 		1763642C25613B5000E81FB1 /* MOS6502UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763642B25613B5000E81FB1 /* MOS6502UITests.swift */; };
+		1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */; };
+		1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643C25613E1C00E81FB1 /* BinaryIntegerExtensions.swift */; };
+		1763643F25613E6900E81FB1 /* UInt16Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643E25613E6900E81FB1 /* UInt16Extensions.swift */; };
+		1763644225613F1F00E81FB1 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644125613F1F00E81FB1 /* Memory.swift */; };
+		1763644425613F4300E81FB1 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644325613F4300E81FB1 /* CPU.swift */; };
+		1763644825613FB700E81FB1 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644725613FB700E81FB1 /* Instruction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +55,12 @@
 		1763642725613B5000E81FB1 /* MOS6502UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MOS6502UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1763642B25613B5000E81FB1 /* MOS6502UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOS6502UITests.swift; sourceTree = "<group>"; };
 		1763642D25613B5000E81FB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeReplaceableCollectionExtensions.swift; sourceTree = "<group>"; };
+		1763643C25613E1C00E81FB1 /* BinaryIntegerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryIntegerExtensions.swift; sourceTree = "<group>"; };
+		1763643E25613E6900E81FB1 /* UInt16Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt16Extensions.swift; sourceTree = "<group>"; };
+		1763644125613F1F00E81FB1 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
+		1763644325613F4300E81FB1 /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
+		1763644725613FB700E81FB1 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +111,10 @@
 		1763640825613B4F00E81FB1 /* MOS6502 */ = {
 			isa = PBXGroup;
 			children = (
+				1763644625613F9300E81FB1 /* Instructions */,
+				1763644525613F8300E81FB1 /* CPU */,
+				1763644025613F0D00E81FB1 /* Memory */,
+				1763643925613D9A00E81FB1 /* Extensions */,
 				1763640925613B4F00E81FB1 /* AppDelegate.swift */,
 				1763640B25613B4F00E81FB1 /* SceneDelegate.swift */,
 				1763640D25613B4F00E81FB1 /* ContentView.swift */,
@@ -134,6 +150,40 @@
 				1763642D25613B5000E81FB1 /* Info.plist */,
 			);
 			path = MOS6502UITests;
+			sourceTree = "<group>";
+		};
+		1763643925613D9A00E81FB1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */,
+				1763643C25613E1C00E81FB1 /* BinaryIntegerExtensions.swift */,
+				1763643E25613E6900E81FB1 /* UInt16Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1763644025613F0D00E81FB1 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				1763644125613F1F00E81FB1 /* Memory.swift */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		1763644525613F8300E81FB1 /* CPU */ = {
+			isa = PBXGroup;
+			children = (
+				1763644325613F4300E81FB1 /* CPU.swift */,
+			);
+			path = CPU;
+			sourceTree = "<group>";
+		};
+		1763644625613F9300E81FB1 /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				1763644725613FB700E81FB1 /* Instruction.swift */,
+			);
+			path = Instructions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,8 +316,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1763643F25613E6900E81FB1 /* UInt16Extensions.swift in Sources */,
 				1763640A25613B4F00E81FB1 /* AppDelegate.swift in Sources */,
 				1763640C25613B4F00E81FB1 /* SceneDelegate.swift in Sources */,
+				1763644825613FB700E81FB1 /* Instruction.swift in Sources */,
+				1763644225613F1F00E81FB1 /* Memory.swift in Sources */,
+				1763644425613F4300E81FB1 /* CPU.swift in Sources */,
+				1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
+				1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
