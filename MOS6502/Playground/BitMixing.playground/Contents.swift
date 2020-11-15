@@ -18,18 +18,18 @@ extension BinaryInteger {
     //Note these are to get round the issue with using radix 2 with negative signed numbers
     //As printing radix 2 of a Signed -2 ends up printing 00000-10 which is incorrect
     var binaryDescription: String {
-            var binaryString = ""
-            var internalNumber = self
-            for _ in (1...self.bitWidth) {
-                binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
-                internalNumber >>= 1
-            }
-            return "0b" + binaryString
+        var binaryString = ""
+        var internalNumber = self
+        for _ in (1...self.bitWidth) {
+            binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
+            internalNumber >>= 1
         }
+        return "0b" + binaryString
+    }
     
     func printRepresentation() {
         print("Binary Test", self.binaryDescription)
-//        print("Binary:  ",String(self, radix: 2).leftPad(to: 8, using: "0"))
+        //        print("Binary:  ",String(self, radix: 2).leftPad(to: 8, using: "0"))
         print("Decimal: ",String(self).leftPad(to: 8))
         print("Hex:     ",String(self, radix: 16).leftPad(to: 8))
         print()
@@ -136,7 +136,7 @@ class Memory {
 }
 
 /* Currently working from the information on https://www.masswerk.at/6502/6502_instruction_set.html
-   And also http://www.6502.org/tutorials/6502opcodes.html which was used for the timing tables
+ And also http://www.6502.org/tutorials/6502opcodes.html which was used for the timing tables
  
  */
 
@@ -202,7 +202,7 @@ class CPU {
             let value = get()
             a = Int8(memory.read(location: UInt16(value)))
             
-        
+            
         case 0xA9: /* Load accumulator Immediate */
             let value = get()
             a = Int8(value)
@@ -214,7 +214,7 @@ class CPU {
     }
 }
 
-
+// Instanciate the CPU and set the reset vector
 var cpu = CPU(with: Memory(memorySize: 65535))
 cpu.memory.write(location: 0xFFFC, data: 10)
 cpu.memory.write(location: 0xFFFD, data: 20)
@@ -281,22 +281,22 @@ class InstructionTable {
     var instructions: [Instruction] = []
     
     func buildInstructions() {
-
-//ADC
-instructions.append(Instruction(mode: .immediate, syntax: "ADC #$44", hexCode: 0x69, len: 2, cycles: 2, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
-
-instructions.append(Instruction(mode: .zeroPage, syntax: "ADC $44", hexCode: 0x65, len: 2, cycles: 3, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
-
-instructions.append(Instruction(mode: .zeroPageX, syntax: "ADC $44, X", hexCode: 0x75, len: 2, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
-
-instructions.append(Instruction(mode: .absolute, syntax: "ADC $4400", hexCode: 0x6D, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
-
-instructions.append(Instruction(mode: .absoluteX, syntax: "ADC $4400, X", hexCode: 0x7D, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
-
-instructions.append(Instruction(mode: .absoluteY, syntax: "ADC $4400, Y", hexCode: 0x79, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
-
-instructions.append(Instruction(mode: .indirectX, syntax: "ADC ($44, X)", hexCode: 0x61, len: 2, cycles: 6, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
-
-instructions.append(Instruction(mode: .indirectY, syntax: "ADC ($44), Y", hexCode: 0x71, len: 2, cycles: 5, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
+        
+        //ADC
+        instructions.append(Instruction(mode: .immediate, syntax: "ADC #$44", hexCode: 0x69, len: 2, cycles: 2, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+        
+        instructions.append(Instruction(mode: .zeroPage, syntax: "ADC $44", hexCode: 0x65, len: 2, cycles: 3, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+        
+        instructions.append(Instruction(mode: .zeroPageX, syntax: "ADC $44, X", hexCode: 0x75, len: 2, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+        
+        instructions.append(Instruction(mode: .absolute, syntax: "ADC $4400", hexCode: 0x6D, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+        
+        instructions.append(Instruction(mode: .absoluteX, syntax: "ADC $4400, X", hexCode: 0x7D, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
+        
+        instructions.append(Instruction(mode: .absoluteY, syntax: "ADC $4400, Y", hexCode: 0x79, len: 3, cycles: 4, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
+        
+        instructions.append(Instruction(mode: .indirectX, syntax: "ADC ($44, X)", hexCode: 0x61, len: 2, cycles: 6, flagsAffected: "NVZC", requiresAdditionalCycles: false, cyclesToAdd: 0, description: "ADd with Carry"))
+        
+        instructions.append(Instruction(mode: .indirectY, syntax: "ADC ($44), Y", hexCode: 0x71, len: 2, cycles: 5, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
     }
 }

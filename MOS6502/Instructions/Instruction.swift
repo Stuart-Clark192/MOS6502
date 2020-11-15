@@ -17,6 +17,8 @@ enum InstructionMode {
     case indirectX
     case indirectY
     case implied
+    case accumulator
+    case relative
 }
 
 struct Instruction {
@@ -25,10 +27,21 @@ struct Instruction {
     let hexCode: UInt8
     let len: Int
     let cycles: Int
-    let flagsAffected: String
+    let flagsAffected: [StatusFlag]
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
     let description: String
     
     // Add a closure that should be executed for this instruction
+}
+
+enum StatusFlag {
+    case N      // Negative
+    case V      // Overflow
+    case nu1    // Unused
+    case nu2    // Unused
+    case D      // Decimal
+    case I      // Interrupt Disable
+    case Z      // Zero
+    case C      // Carry
 }
