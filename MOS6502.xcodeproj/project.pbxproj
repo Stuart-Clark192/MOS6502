@@ -61,6 +61,7 @@
 		1763644125613F1F00E81FB1 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		1763644325613F4300E81FB1 /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		1763644725613FB700E81FB1 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
+		1763644A2561411400E81FB1 /* BitMixing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitMixing.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +112,7 @@
 		1763640825613B4F00E81FB1 /* MOS6502 */ = {
 			isa = PBXGroup;
 			children = (
+				176364492561410400E81FB1 /* Playground */,
 				1763644625613F9300E81FB1 /* Instructions */,
 				1763644525613F8300E81FB1 /* CPU */,
 				1763644025613F0D00E81FB1 /* Memory */,
@@ -184,6 +186,14 @@
 				1763644725613FB700E81FB1 /* Instruction.swift */,
 			);
 			path = Instructions;
+			sourceTree = "<group>";
+		};
+		176364492561410400E81FB1 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				1763644A2561411400E81FB1 /* BitMixing.playground */,
+			);
+			path = Playground;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
