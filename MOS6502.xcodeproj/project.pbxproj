@@ -21,7 +21,7 @@
 		1763644225613F1F00E81FB1 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644125613F1F00E81FB1 /* Memory.swift */; };
 		1763644425613F4300E81FB1 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644325613F4300E81FB1 /* CPU.swift */; };
 		1763644825613FB700E81FB1 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644725613FB700E81FB1 /* Instruction.swift */; };
-		1763644C2561460100E81FB1 /* InstructionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644B2561460100E81FB1 /* InstructionTable.swift */; };
+		1763644C2561460100E81FB1 /* CPU+InstructionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +63,8 @@
 		1763644325613F4300E81FB1 /* CPU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU.swift; sourceTree = "<group>"; };
 		1763644725613FB700E81FB1 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		1763644A2561411400E81FB1 /* BitMixing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitMixing.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		1763644B2561460100E81FB1 /* InstructionTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionTable.swift; sourceTree = "<group>"; };
+		1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+InstructionTable.swift"; sourceTree = "<group>"; };
+		1763644D256170C300E81FB1 /* MOS6502.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MOS6502.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +115,7 @@
 		1763640825613B4F00E81FB1 /* MOS6502 */ = {
 			isa = PBXGroup;
 			children = (
+				1763644D256170C300E81FB1 /* MOS6502.entitlements */,
 				176364492561410400E81FB1 /* Playground */,
 				1763644625613F9300E81FB1 /* Instructions */,
 				1763644525613F8300E81FB1 /* CPU */,
@@ -177,6 +179,7 @@
 		1763644525613F8300E81FB1 /* CPU */ = {
 			isa = PBXGroup;
 			children = (
+				1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */,
 				1763644325613F4300E81FB1 /* CPU.swift */,
 			);
 			path = CPU;
@@ -186,7 +189,6 @@
 			isa = PBXGroup;
 			children = (
 				1763644725613FB700E81FB1 /* Instruction.swift */,
-				1763644B2561460100E81FB1 /* InstructionTable.swift */,
 			);
 			path = Instructions;
 			sourceTree = "<group>";
@@ -330,7 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1763643F25613E6900E81FB1 /* UInt16Extensions.swift in Sources */,
-				1763644C2561460100E81FB1 /* InstructionTable.swift in Sources */,
+				1763644C2561460100E81FB1 /* CPU+InstructionTable.swift in Sources */,
 				1763640A25613B4F00E81FB1 /* AppDelegate.swift in Sources */,
 				1763640C25613B4F00E81FB1 /* SceneDelegate.swift in Sources */,
 				1763644825613FB700E81FB1 /* Instruction.swift in Sources */,
@@ -506,19 +508,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MOS6502/MOS6502.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MOS6502/Preview Content\"";
 				DEVELOPMENT_TEAM = 7947CFF545;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MOS6502/Info.plist;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.scmotech.MOS6502;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -527,19 +532,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MOS6502/MOS6502.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MOS6502/Preview Content\"";
 				DEVELOPMENT_TEAM = 7947CFF545;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MOS6502/Info.plist;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.scmotech.MOS6502;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};

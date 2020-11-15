@@ -112,6 +112,20 @@ combineHighByte.printRepresentation()
 combineLowByte.printRepresentation()
 combinedByte.printRepresentation()
 
+/* Setting bit in an 8 bit value */
+
+var statusByte: UInt8 = 0
+
+// Set bit 0
+statusByte |= 1 << 0
+
+printHeaderFor(example: "Setting bit in an 8 bit value")
+statusByte.printRepresentation()
+
+// Set bit 7
+
+statusByte |= 1 << 7
+statusByte.printRepresentation()
 
 class Memory {
     

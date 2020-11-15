@@ -13,6 +13,10 @@ import Foundation
  */
 
 class CPU {
+    
+    // Instruction Lookup table
+    var instructions: [Instruction] = []
+    
     // Program Counter
     var pc: UInt16 = 0
     
@@ -23,7 +27,7 @@ class CPU {
     var p: UInt8 = 0
     
     // Accumulator
-    var a: Int8 = 0
+    var a: UInt8 = 0
     
     // X and Y registers
     var x: UInt8 = 0
@@ -39,9 +43,11 @@ class CPU {
     }
     
     var memory: Memory
+    var calculationSum: Int = 0
     
     init(with memory: Memory) {
         self.memory = memory
+        buildInstructions()
     }
     
     func peek() -> UInt8 {
@@ -53,31 +59,57 @@ class CPU {
         return memory.read(location: pc - 1)
     }
     
+    private func setFlag(_ flag: StatusFlag) {
+        switch flag {
+
+        case .N:
+            p |= ((a & 0x80) != 0 ? 1 : 0) << 7
+        case .V:
+            p |= 1 << 6
+        case .D:
+            p |= 1 << 3
+        case .I:
+            p |= 1 << 2
+        case .Z:
+            p |= (a == 0 ? 1 : 0) << 1
+        case .C:
+            p |= calculationSum > 0xFF ? 1 : 0
+        default:
+            break
+        }
+    }
+    
     func reset() {
         
         pc = UInt16.combine(lowByte: memory.read(location: 0xFFFC), highByte: memory.read(location: 0xFFFD))
+        s = 0xFD
+        a = 0
+        x = 0
+        y = 0
         
     }
     
     func runCycle() {
         
+        calculationSum = 0
         let instr = get()
         
         switch instr {
         case 0x05: /* Logical Or zero paged */
             let value = get()
-            a |= Int8(memory.read(location: UInt16(value)))
+            a |= UInt8(memory.read(location: UInt16(value)))
             
         case 0xA5: /* Load accumulator zero paged */
             let value = get()
-            a = Int8(memory.read(location: UInt16(value)))
+            a = UInt8(memory.read(location: UInt16(value)))
             
         
         case 0xA9: /* Load accumulator Immediate */
             let value = get()
-            a = Int8(value)
+            a = UInt8(value)
             
-            
+            setFlag(.N)
+            setFlag(.Z)
         default:
             print("Uncoded instruction")
         }

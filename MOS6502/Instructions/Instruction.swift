@@ -31,17 +31,16 @@ struct Instruction {
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
     let description: String
-    
-    // Add a closure that should be executed for this instruction
+    let executionBlock: (() -> UInt8)?
 }
 
 enum StatusFlag {
-    case N      // Negative
-    case V      // Overflow
-    case nu1    // Unused
-    case nu2    // Unused
-    case D      // Decimal
-    case I      // Interrupt Disable
-    case Z      // Zero
-    case C      // Carry
+    case N      // Negative             Bit 7
+    case V      // Overflow             Bit 6
+    case nu1    // Unused               Bit 5
+    case nu2    // Unused               Bit 4
+    case D      // Decimal              Bit 3
+    case I      // Interrupt Disable    Bit 2
+    case Z      // Zero                 Bit 1
+    case C      // Carry                Bit 0
 }
