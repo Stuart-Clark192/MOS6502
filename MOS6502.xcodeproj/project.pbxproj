@@ -22,6 +22,7 @@
 		1763644425613F4300E81FB1 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644325613F4300E81FB1 /* CPU.swift */; };
 		1763644825613FB700E81FB1 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644725613FB700E81FB1 /* Instruction.swift */; };
 		1763644C2561460100E81FB1 /* CPU+InstructionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */; };
+		1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		1763644A2561411400E81FB1 /* BitMixing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitMixing.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+InstructionTable.swift"; sourceTree = "<group>"; };
 		1763644D256170C300E81FB1 /* MOS6502.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MOS6502.entitlements; sourceTree = "<group>"; };
+		1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+Addressing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 			children = (
 				1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */,
 				1763644325613F4300E81FB1 /* CPU.swift */,
+				1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */,
 			);
 			path = CPU;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
 				1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */,
+				1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
