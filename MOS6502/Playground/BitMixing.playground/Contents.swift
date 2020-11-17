@@ -314,3 +314,56 @@ class InstructionTable {
         instructions.append(Instruction(mode: .indirectY, syntax: "ADC ($44), Y", hexCode: 0x71, len: 2, cycles: 5, flagsAffected: "NVZC", requiresAdditionalCycles: true, cyclesToAdd: 1, description: "ADd with Carry add 1 cycle if page boundry is crossed"))
     }
 }
+
+
+/* Checking wrap around logic is correct
+ 
+ So for Zero page X, if the sum of the address + the value in the X register > 0xFF then the resulting
+ Address wraps around to fall within the range of 0xFF - basically dropping the carry bit
+ 
+ in the example below 0x80 + 0xFF = 0x17F   (128 + 255 = 383)
+ 
+ Anding with 0xFF will do the following
+ 
+ 
+ Result of sum  : 0000000101111111
+ Binary of 0xFF : 0000000011111111
+ result of and  : 0000000001111111
+ 
+ where 0111111 = 0x7F
+ */
+
+printHeaderFor(example: "Zero page wrap around")
+let testX:UInt8 = 0x80
+let testAddress:UInt8 = 0xFF
+testX.printRepresentation()
+testAddress.printRepresentation()
+
+var addrAbs:UInt16 = UInt16(testX) + UInt16(testAddress)
+
+addrAbs.printRepresentation()
+
+if addrAbs > 0xFF {
+    addrAbs &= 0xFF
+}
+
+addrAbs.printRepresentation()
+
+printHeaderFor(example: "UInt8 to Signed integer in range of -128 - 127")
+var relativeAddr:UInt8 = 1
+var relative: Int8 = 0
+
+relativeAddr.printRepresentation()
+
+if (relativeAddr < 128) {
+    relative = Int8(bitPattern: relativeAddr)
+    relative |= -0x80
+} else {
+    relativeAddr -= 128
+    relative = Int8(bitPattern: relativeAddr)
+}
+
+relative.printRepresentation()
+
+print(Int8.max)
+

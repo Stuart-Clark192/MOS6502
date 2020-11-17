@@ -44,6 +44,7 @@ class CPU {
     
     var memory: Memory
     var calculationSum: Int = 0
+    var memoryFetchedValue: UInt8 = 0
     
     init(with memory: Memory) {
         self.memory = memory
