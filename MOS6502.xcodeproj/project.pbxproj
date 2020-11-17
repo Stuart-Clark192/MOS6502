@@ -23,6 +23,17 @@
 		1763644825613FB700E81FB1 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644725613FB700E81FB1 /* Instruction.swift */; };
 		1763644C2561460100E81FB1 /* CPU+InstructionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */; };
 		1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */; };
+		17636451256427D200E81FB1 /* UInt8Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636450256427D200E81FB1 /* UInt8Extensions.swift */; };
+		1763645B2564380B00E81FB1 /* MOS6502PlaygroundSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 176364592564380B00E81FB1 /* MOS6502PlaygroundSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1763645F2564381800E81FB1 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644725613FB700E81FB1 /* Instruction.swift */; };
+		176364602564381B00E81FB1 /* CPU+InstructionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */; };
+		176364612564381E00E81FB1 /* CPU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644325613F4300E81FB1 /* CPU.swift */; };
+		176364622564382100E81FB1 /* CPU+Addressing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */; };
+		176364632564382400E81FB1 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763644125613F1F00E81FB1 /* Memory.swift */; };
+		176364642564382900E81FB1 /* UInt16Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643E25613E6900E81FB1 /* UInt16Extensions.swift */; };
+		176364652564382900E81FB1 /* BinaryIntegerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643C25613E1C00E81FB1 /* BinaryIntegerExtensions.swift */; };
+		176364662564382900E81FB1 /* UInt8Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636450256427D200E81FB1 /* UInt8Extensions.swift */; };
+		176364672564382900E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +78,10 @@
 		1763644B2561460100E81FB1 /* CPU+InstructionTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+InstructionTable.swift"; sourceTree = "<group>"; };
 		1763644D256170C300E81FB1 /* MOS6502.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MOS6502.entitlements; sourceTree = "<group>"; };
 		1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+Addressing.swift"; sourceTree = "<group>"; };
+		17636450256427D200E81FB1 /* UInt8Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UInt8Extensions.swift; sourceTree = "<group>"; };
+		176364572564380A00E81FB1 /* MOS6502PlaygroundSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MOS6502PlaygroundSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		176364592564380B00E81FB1 /* MOS6502PlaygroundSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOS6502PlaygroundSupport.h; sourceTree = "<group>"; };
+		1763645A2564380B00E81FB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +106,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		176364542564380A00E81FB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -100,6 +122,7 @@
 				1763640825613B4F00E81FB1 /* MOS6502 */,
 				1763641F25613B5000E81FB1 /* MOS6502Tests */,
 				1763642A25613B5000E81FB1 /* MOS6502UITests */,
+				176364582564380A00E81FB1 /* MOS6502PlaygroundSupport */,
 				1763640725613B4F00E81FB1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,6 +133,7 @@
 				1763640625613B4F00E81FB1 /* MOS6502.app */,
 				1763641C25613B5000E81FB1 /* MOS6502Tests.xctest */,
 				1763642725613B5000E81FB1 /* MOS6502UITests.xctest */,
+				176364572564380A00E81FB1 /* MOS6502PlaygroundSupport.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +190,7 @@
 				1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */,
 				1763643C25613E1C00E81FB1 /* BinaryIntegerExtensions.swift */,
 				1763643E25613E6900E81FB1 /* UInt16Extensions.swift */,
+				17636450256427D200E81FB1 /* UInt8Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -204,7 +229,27 @@
 			path = Playground;
 			sourceTree = "<group>";
 		};
+		176364582564380A00E81FB1 /* MOS6502PlaygroundSupport */ = {
+			isa = PBXGroup;
+			children = (
+				176364592564380B00E81FB1 /* MOS6502PlaygroundSupport.h */,
+				1763645A2564380B00E81FB1 /* Info.plist */,
+			);
+			path = MOS6502PlaygroundSupport;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		176364522564380A00E81FB1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1763645B2564380B00E81FB1 /* MOS6502PlaygroundSupport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		1763640525613B4F00E81FB1 /* MOS6502 */ = {
@@ -260,6 +305,24 @@
 			productReference = 1763642725613B5000E81FB1 /* MOS6502UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		176364562564380A00E81FB1 /* MOS6502PlaygroundSupport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1763645E2564380B00E81FB1 /* Build configuration list for PBXNativeTarget "MOS6502PlaygroundSupport" */;
+			buildPhases = (
+				176364522564380A00E81FB1 /* Headers */,
+				176364532564380A00E81FB1 /* Sources */,
+				176364542564380A00E81FB1 /* Frameworks */,
+				176364552564380A00E81FB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MOS6502PlaygroundSupport;
+			productName = MOS6502PlaygroundSupport;
+			productReference = 176364572564380A00E81FB1 /* MOS6502PlaygroundSupport.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -280,6 +343,9 @@
 						CreatedOnToolsVersion = 12.0;
 						TestTargetID = 1763640525613B4F00E81FB1;
 					};
+					176364562564380A00E81FB1 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 				};
 			};
 			buildConfigurationList = 1763640125613B4F00E81FB1 /* Build configuration list for PBXProject "MOS6502" */;
@@ -298,6 +364,7 @@
 				1763640525613B4F00E81FB1 /* MOS6502 */,
 				1763641B25613B5000E81FB1 /* MOS6502Tests */,
 				1763642625613B5000E81FB1 /* MOS6502UITests */,
+				176364562564380A00E81FB1 /* MOS6502PlaygroundSupport */,
 			);
 		};
 /* End PBXProject section */
@@ -327,6 +394,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		176364552564380A00E81FB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -342,6 +416,7 @@
 				1763644225613F1F00E81FB1 /* Memory.swift in Sources */,
 				1763644425613F4300E81FB1 /* CPU.swift in Sources */,
 				1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
+				17636451256427D200E81FB1 /* UInt8Extensions.swift in Sources */,
 				1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */,
 				1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */,
@@ -361,6 +436,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				1763642C25613B5000E81FB1 /* MOS6502UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		176364532564380A00E81FB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				176364662564382900E81FB1 /* UInt8Extensions.swift in Sources */,
+				176364602564381B00E81FB1 /* CPU+InstructionTable.swift in Sources */,
+				1763645F2564381800E81FB1 /* Instruction.swift in Sources */,
+				176364672564382900E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
+				176364622564382100E81FB1 /* CPU+Addressing.swift in Sources */,
+				176364632564382400E81FB1 /* Memory.swift in Sources */,
+				176364652564382900E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
+				176364642564382900E81FB1 /* UInt16Extensions.swift in Sources */,
+				176364612564381E00E81FB1 /* CPU.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +730,60 @@
 			};
 			name = Release;
 		};
+		1763645C2564380B00E81FB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7947CFF545;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MOS6502PlaygroundSupport/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.scmotech.MOS6502PlaygroundSupport;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		1763645D2564380B00E81FB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7947CFF545;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = MOS6502PlaygroundSupport/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.scmotech.MOS6502PlaygroundSupport;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -674,6 +819,15 @@
 			buildConfigurations = (
 				1763643725613B5000E81FB1 /* Debug */,
 				1763643825613B5000E81FB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1763645E2564380B00E81FB1 /* Build configuration list for PBXNativeTarget "MOS6502PlaygroundSupport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1763645C2564380B00E81FB1 /* Debug */,
+				1763645D2564380B00E81FB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
