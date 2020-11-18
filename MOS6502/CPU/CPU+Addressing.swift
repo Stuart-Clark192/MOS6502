@@ -23,51 +23,50 @@ extension CPU {
     //Immediate data will be the next data byte, use the data byte directly as the value
     func immediateData() -> UInt8 {
         
+        print("Reading Value pc = \(pc)")
+        pc.printRepresentation()
+        memoryFetchedValue = memory.read(location: pc)
         pc += 1
-        memoryFetchedValue = UInt16(memory.read(location: pc))
         return 0
     }
     
     func zeroPageData() -> UInt8 {
         
-        pc += 1
         let dataReadLocation = memory.read(location: pc)
-        memoryFetchedValue = UInt16(memory.read(location: UInt16(dataReadLocation & 0x00FF))) // Remember the memory is holding 8 bit values but is 16 bit addresses so we need to &
-        
+        memoryFetchedValue = memory.read(location: UInt16(dataReadLocation & 0x00FF)) // Remember the memory is holding 8 bit values but is 16 bit addresses so we need to &
+        pc += 1
         return 0
     }
     
     func zeroXPageData() -> UInt8 {
         
-        pc += 1
         let dataReadLocation = memory.read(location: pc)
         var absAddr = UInt16(x) + UInt16(dataReadLocation)
         
         if absAddr > 0xFF {
             absAddr &= 0xFF
         }
-        memoryFetchedValue = UInt16(memory.read(location: absAddr))
-        
+        memoryFetchedValue = memory.read(location: absAddr)
+        pc += 1
         return 0
     }
     
     func zeroYPageData() -> UInt8 {
         
-        pc += 1
         let dataReadLocation = memory.read(location: pc)
         var absAddr = UInt16(y) + UInt16(dataReadLocation)
         
         if absAddr > 0xFF {
             absAddr &= 0xFF
         }
-        memoryFetchedValue = UInt16(memory.read(location: absAddr))
+        memoryFetchedValue = memory.read(location: absAddr)
         
         return 0
     }
     
     func relativeData() -> UInt8 {
         pc += 1
-        memoryFetchedValue = UInt16(memory.read(location: pc))
+        memoryFetchedValue = memory.read(location: pc)
         
         return 0
     }
@@ -79,7 +78,7 @@ extension CPU {
         pc += 1
         let highByte = memory.read(location: pc)
         
-        memoryFetchedValue = UInt16.combine(lowByte: lowByte, highByte: highByte)
+        memoryFetchedValue = memory.read(location: UInt16.combine(lowByte: lowByte, highByte: highByte))
         
         return 0
     }
@@ -90,7 +89,7 @@ extension CPU {
         pc += 1
         let highByte = memory.read(location: pc)
         
-        memoryFetchedValue = UInt16.combine(lowByte: lowByte, highByte: highByte) + UInt16(x)
+        memoryFetchedValue = memory.read(location: UInt16.combine(lowByte: lowByte, highByte: highByte) + UInt16(x))
         
         return 0
     }
@@ -101,7 +100,7 @@ extension CPU {
         pc += 1
         let highByte = memory.read(location: pc)
         
-        memoryFetchedValue = UInt16.combine(lowByte: lowByte, highByte: highByte) + UInt16(y)
+        memoryFetchedValue = memory.read(location: UInt16.combine(lowByte: lowByte, highByte: highByte) + UInt16(y))
         
         return 0
     }
@@ -122,7 +121,7 @@ extension CPU {
         let targetAddressLowByte = memory.read(location: pointerAddress)
         let targetAddressHighByte = memory.read(location: pointerAddress + 1)
         
-        memoryFetchedValue = UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte)
+        memoryFetchedValue = memory.read(location: UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte))
         
         return 0
     }
@@ -140,7 +139,7 @@ extension CPU {
         let targetAddressLowByte = memory.read(location: absAddr)
         let targetAddressHighByte = memory.read(location: absAddr + 1)
         
-        memoryFetchedValue = UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte)
+        memoryFetchedValue = memory.read(location: UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte))
         
         return 0
     }
@@ -158,7 +157,7 @@ extension CPU {
         let targetAddressLowByte = memory.read(location: absAddr)
         let targetAddressHighByte = memory.read(location: absAddr + 1)
         
-        memoryFetchedValue = UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte)
+        memoryFetchedValue = memory.read(location: UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte))
         
         return 0
     }

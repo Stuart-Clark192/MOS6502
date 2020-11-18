@@ -11,6 +11,7 @@ enum InstructionMode {
     case immediate   //  use the value directly following the operand
     case zeroPage
     case zeroPageX
+    case zeroPageY
     case absolute
     case absoluteX
     case absoluteY
@@ -31,7 +32,7 @@ struct Instruction {
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
     let description: String
-    let executionBlock: (() -> UInt8)?
+    let executionBlock: (() -> ())
 }
 
 enum StatusFlag {

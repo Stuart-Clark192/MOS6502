@@ -161,4 +161,93 @@ relativeAddr.printRepresentation()
 relative.printRepresentation()
 
 
+// Instanciate the CPU and set the reset vector
+var mem = Memory(memorySize: 65535)
+var cpu2 = CPU(with: mem)
+cpu2.memory.write(location: 0xFFFC, data: 10)
+cpu2.memory.write(location: 0xFFFD, data: 20)
+cpu2.reset()
 
+printHeaderFor(example: "PC Currently pointing to")
+cpu2.pc.printRepresentation()
+cpu2.peek().printRepresentation()
+
+
+/* Quick test to see if this will run the following 6502 code
+ 
+ Assuming memory location 0x0010 has the value of 2 stored
+ 
+ LDA #1      // Load accumulator with the value 1
+ 
+ */
+
+/*printHeaderFor(example: "LDA Immediate")
+cpu2.memory.write(location: 0x140A, data: 0xA9) // LDA Command
+cpu2.memory.write(location: 0x140B, data: 99) // Value to load
+
+
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+
+printHeaderFor(example: "LDA Zero Page")
+
+mem.clear()
+cpu2.memory.write(location: 0xFFFC, data: 10)
+cpu2.memory.write(location: 0xFFFD, data: 20)
+cpu2.reset()
+
+cpu2.memory.write(location: 0x140A, data: 0xA5) // LDA Command
+cpu2.memory.write(location: 0x140B, data: 0x44) // Value to load
+cpu2.memory.write(location: 0x44, data: 99)
+
+
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+
+printHeaderFor(example: "LDX immediate")
+
+mem.clear()
+cpu2.memory.write(location: 0xFFFC, data: 10)
+cpu2.memory.write(location: 0xFFFD, data: 20)
+cpu2.reset()
+
+cpu2.memory.write(location: 0x140A, data: 0xA2) // LDX Command
+cpu2.memory.write(location: 0x140B, data: 55) // Value to load
+
+
+cpu2.runCycle()
+cpu2.x.printRepresentation()
+
+
+printHeaderFor(example: "LDX Zero Page")
+
+mem.clear()
+cpu2.memory.write(location: 0xFFFC, data: 10)
+cpu2.memory.write(location: 0xFFFD, data: 20)
+cpu2.reset()
+
+cpu2.memory.write(location: 0x140A, data: 0xA6) // LDX Command
+cpu2.memory.write(location: 0x140B, data: 0x44) // Value to load
+cpu2.memory.write(location: 0x44, data: 21)
+
+cpu2.runCycle()
+cpu2.x.printRepresentation()*/
+
+
+printHeaderFor(example: "LDA Zero Page X")
+
+mem.clear()
+cpu2.memory.write(location: 0xFFFC, data: 10)
+cpu2.memory.write(location: 0xFFFD, data: 20)
+cpu2.reset()
+
+cpu2.memory.write(location: 0x140A, data: 0xA2) // LDX Command
+cpu2.memory.write(location: 0x140B, data: 20) // Value to load
+cpu2.memory.write(location: 0x28, data: 77) //Load location 40 with 77
+cpu2.memory.write(location: 0x140C, data: 0xB5) // LDA zero page x Command
+cpu2.memory.write(location: 0x140D, data: 20) // Value to load
+
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.x.printRepresentation()
+cpu2.a.printRepresentation()

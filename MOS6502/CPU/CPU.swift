@@ -44,7 +44,8 @@ class CPU {
     
     var memory: Memory
     var calculationSum: Int = 0
-    var memoryFetchedValue: UInt16 = 0
+    var memoryFetchedValue: UInt8 = 0
+    var memoryreadValue: UInt8 = 0
     
     init(with memory: Memory) {
         self.memory = memory
@@ -55,7 +56,7 @@ class CPU {
         memory.read(location: pc)
     }
     
-    private func get() -> UInt8 {
+    func get() -> UInt8 {
         pc += 1
         return memory.read(location: pc - 1)
     }
@@ -95,24 +96,34 @@ class CPU {
         calculationSum = 0
         let instr = get()
         
-        switch instr {
-        case 0x05: /* Logical Or zero paged */
-            let value = get()
-            a |= UInt8(memory.read(location: UInt16(value)))
-            
-        case 0xA5: /* Load accumulator zero paged */
-            let value = get()
-            a = UInt8(memory.read(location: UInt16(value)))
-            
-        
-        case 0xA9: /* Load accumulator Immediate */
-            let value = get()
-            a = UInt8(value)
-            
-            setFlag(.N)
-            setFlag(.Z)
-        default:
-            print("Uncoded instruction")
+        let tableInstr = instructions.first {
+            $0.hexCode == instr
         }
+        
+        if let instrToExecute = tableInstr {
+            print("******Executing instruction \(instrToExecute.syntax)")
+            getInstrValueFromMemory(addressMode: instrToExecute.mode)
+            instrToExecute.executionBlock()
+        }
+        
+//        switch instr {
+//        case 0x05: /* Logical Or zero paged */
+//            let value = get()
+//            a |= UInt8(memory.read(location: UInt16(value)))
+//
+//        case 0xA5: /* Load accumulator zero paged */
+//            let value = get()
+//            a = UInt8(memory.read(location: UInt16(value)))
+//
+//
+//        case 0xA9: /* Load accumulator Immediate */
+//            let value = get()
+//            a = UInt8(value)
+//
+//            setFlag(.N)
+//            setFlag(.Z)
+//        default:
+//            print("Uncoded instruction")
+//        }
     }
 }

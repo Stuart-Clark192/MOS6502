@@ -27,4 +27,8 @@ class Memory {
         guard location > 0 && location < memSize else { return }
         memory[Int(location)] = data
     }
+    
+    func clear() {
+        memory = Array(repeating: 0x00, count: Int(memSize))
+    }
 }
