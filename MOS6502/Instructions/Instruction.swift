@@ -22,15 +22,20 @@ enum InstructionMode {
     case relative
 }
 
-struct Instruction {
+struct InstructionDetails {
     let mode: InstructionMode
     let syntax: String
     let hexCode: UInt8
     let len: Int
     let cycles: Int
-    let flagsAffected: [StatusFlag]
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
+}
+
+struct Instruction {
+
+    let details: [InstructionDetails]
+    let flagsAffected: [StatusFlag]
     let description: String
     let executionBlock: (() -> ())
 }

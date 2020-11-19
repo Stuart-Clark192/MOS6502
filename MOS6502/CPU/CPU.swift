@@ -97,13 +97,19 @@ class CPU {
         let instr = get()
         
         let tableInstr = instructions.first {
+            $0.details.first {
+                $0.hexCode == instr
+            } != nil
+        }
+        
+        let correctlyAddressedInstr = tableInstr?.details.first {
             $0.hexCode == instr
         }
         
-        if let instrToExecute = tableInstr {
-            print("******Executing instruction \(instrToExecute.syntax)")
+        if let instrToExecute = correctlyAddressedInstr, let tableInstr = tableInstr {
+            print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode)")
             getInstrValueFromMemory(addressMode: instrToExecute.mode)
-            instrToExecute.executionBlock()
+            tableInstr.executionBlock()
         }
         
 //        switch instr {
