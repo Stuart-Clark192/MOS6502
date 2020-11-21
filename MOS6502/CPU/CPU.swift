@@ -61,11 +61,11 @@ class CPU {
         return memory.read(location: pc - 1)
     }
     
-    private func setFlag(_ flag: StatusFlag) {
+    internal func setFlag(_ flag: StatusFlag, for value: Int) {
         switch flag {
 
         case .N:
-            p |= ((a & 0x80) != 0 ? 1 : 0) << 7
+            p |= ((value & 0x80) != 0 ? 1 : 0) << 7
         case .V:
             p |= 1 << 6
         case .D:
@@ -73,13 +73,33 @@ class CPU {
         case .I:
             p |= 1 << 2
         case .Z:
-            p |= (a == 0 ? 1 : 0) << 1
+            p |= (value == 0 ? 1 : 0) << 1
         case .C:
-            p |= calculationSum > 0xFF ? 1 : 0
+            p |= value > 0xFF ? 1 : 0
         default:
             break
         }
     }
+    
+//    internal func setFlag(_ flag: StatusFlag) {
+//        switch flag {
+//
+//        case .N:
+//            p |= ((a & 0x80) != 0 ? 1 : 0) << 7
+//        case .V:
+//            p |= 1 << 6
+//        case .D:
+//            p |= 1 << 3
+//        case .I:
+//            p |= 1 << 2
+//        case .Z:
+//            p |= (a == 0 ? 1 : 0) << 1
+//        case .C:
+//            p |= calculationSum > 0xFF ? 1 : 0
+//        default:
+//            break
+//        }
+//    }
     
     func reset() {
         
@@ -111,25 +131,5 @@ class CPU {
             getInstrValueFromMemory(addressMode: instrToExecute.mode)
             tableInstr.executionBlock()
         }
-        
-//        switch instr {
-//        case 0x05: /* Logical Or zero paged */
-//            let value = get()
-//            a |= UInt8(memory.read(location: UInt16(value)))
-//
-//        case 0xA5: /* Load accumulator zero paged */
-//            let value = get()
-//            a = UInt8(memory.read(location: UInt16(value)))
-//
-//
-//        case 0xA9: /* Load accumulator Immediate */
-//            let value = get()
-//            a = UInt8(value)
-//
-//            setFlag(.N)
-//            setFlag(.Z)
-//        default:
-//            print("Uncoded instruction")
-//        }
     }
 }

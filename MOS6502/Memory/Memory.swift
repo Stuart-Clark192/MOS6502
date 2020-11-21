@@ -31,4 +31,19 @@ class Memory {
     func clear() {
         memory = Array(repeating: 0x00, count: Int(memSize))
     }
+    
+    func loadProg(with bytes: [UInt8], startingFromAddress: UInt16 = 0) {
+        var currentMemoryAddress = startingFromAddress
+        
+        clear()
+        
+        bytes.forEach {
+            write(location: currentMemoryAddress, data: $0)
+            currentMemoryAddress += 1
+        }
+        
+        // Set the starting location
+        write(location: 0xFFFC, data: startingFromAddress.lowByte())
+        write(location: 0xFFFD, data: startingFromAddress.highByte())
+    }
 }

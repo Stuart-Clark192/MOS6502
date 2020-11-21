@@ -154,7 +154,7 @@ if addrAbs > 0xFF {
 addrAbs.printRepresentation()
 
 printHeaderFor(example: "UInt8 to Signed integer in range of -128 - 127")
-var relativeAddr:UInt8 = 255
+var relativeAddr:UInt8 = 122
 var relative: Int8 = relativeAddr.toInt8()
 
 relativeAddr.printRepresentation()
@@ -251,3 +251,13 @@ cpu2.runCycle()
 cpu2.runCycle()
 cpu2.x.printRepresentation()
 cpu2.a.printRepresentation()
+
+
+printHeaderFor(example: "LDA Immediate from memory program load")
+
+cpu2.memory.loadProg(with: [0xA9,0x81], startingFromAddress: 0xC010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()

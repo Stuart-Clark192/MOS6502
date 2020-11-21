@@ -19,6 +19,12 @@ extension CPU {
     
      */
     
+    // Accumulator - the accumulator data will be set so that functions like ROL, ROR etc have data to work on
+    func accumulatorData() -> UInt8 {
+        
+        memoryFetchedValue = a
+        return 0
+    }
     
     //Immediate data will be the next data byte, use the data byte directly as the value
     func immediateData() -> UInt8 {
