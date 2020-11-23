@@ -36,7 +36,6 @@ extension CPU {
     }
     
     func zeroPageData() -> UInt8 {
-        print("Getting zero page data")
         let dataReadLocation = memory.read(location: pc)
         memoryAddress = UInt16(dataReadLocation & 0x00FF) // Remember the memory is holding 8 bit values but is 16 bit addresses so we need to &
         memoryFetchedValue = memory.read(location: memoryAddress)
@@ -85,9 +84,6 @@ extension CPU {
         let lowByte = memory.read(location: pc)
         pc += 1
         let highByte = memory.read(location: pc)
-        
-        print("LowByte = \(lowByte)")
-        print("HighByte = \(highByte)")
         
         memoryAddress = UInt16.combine(lowByte: lowByte, highByte: highByte)
         memoryFetchedValue = memory.read(location: memoryAddress)
@@ -161,19 +157,11 @@ extension CPU {
     }
     
     func indirectYData() -> UInt8 {
+        let locationOfFirstByte = memory.read(location: pc)
+        let targetAddressLowByte = memory.read(location: UInt16(locationOfFirstByte))
+        let targetAddressHighByte = memory.read(location: UInt16(locationOfFirstByte) + 1)
         
-       
-        let dataReadLocation = memory.read(location: pc)
-        var absAddr = UInt16(y) + UInt16(dataReadLocation)
-        
-        if absAddr > 0xFF {
-            absAddr &= 0xFF
-        }
-        
-        let targetAddressLowByte = memory.read(location: absAddr)
-        let targetAddressHighByte = memory.read(location: absAddr + 1)
-        
-        memoryAddress = UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte)
+        memoryAddress = UInt16.combine(lowByte: targetAddressLowByte, highByte: targetAddressHighByte) + UInt16(y)
         memoryFetchedValue = memory.read(location: memoryAddress)
         pc += 1
         return 0

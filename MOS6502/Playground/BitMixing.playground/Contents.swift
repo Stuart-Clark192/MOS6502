@@ -351,3 +351,92 @@ cpu2.runCycle()
 cpu2.runCycle()
 cpu2.runCycle()
 cpu2.a.printRepresentation()
+
+printHeaderFor(example: "LDA Indirect,X from memory program load")
+
+/*
+ LDX #$01
+ LDA #$05
+ STA $01
+ LDA #$07
+ STA $02
+ LDY #$0a
+ STY $0705
+ LDA ($00,X)
+
+ */
+
+cpu2.memory.loadProg(with: "a2 01 a9 05 85 01 a9 07 85 02 a0 0a 8c 05 07 a1 00".toUInt8Array(), startingFromAddress: 0xC010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.x.printRepresentation()
+cpu2.y.printRepresentation()
+
+
+printHeaderFor(example: "LDA Indirect,Y from memory program load")
+
+/*
+ LDX #$01
+ LDA #$05
+ STA $01
+ LDA #$07
+ STA $02
+ LDY #$0a
+ STY $0705
+ LDA ($00,X)
+
+ */
+
+cpu2.memory.loadProg(with: "a0 01 a9 03 85 01 a9 07 85 02 a2 0a 8e 04 07 b1 01".toUInt8Array(), startingFromAddress: 0x0010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+
+cpu2.memory.dumpMem()
+
+
+printHeaderFor(example: "Dex from memory program load")
+
+/*
+ LDX #$00
+ DEX
+
+ */
+
+cpu2.memory.loadProg(with: "A2 00 CA".toUInt8Array(), startingFromAddress: 0x0010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.x.printRepresentation()
+cpu2.p.printRepresentation()
+
+printHeaderFor(example: "INX from memory program load")
+
+/*
+ LDX #$ff
+ INX
+
+ */
+
+cpu2.memory.loadProg(with: "A2 ff e8".toUInt8Array(), startingFromAddress: 0x0010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.x.printRepresentation()
+cpu2.p.printRepresentation()
+

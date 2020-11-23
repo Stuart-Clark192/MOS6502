@@ -35,12 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func runtest() {
         var mem = Memory(memorySize: 65535)
         var cpu2 = CPU(with: mem)
-        cpu2.memory.loadProg(with: "a2 10 8e 00 44 ad 00 44".toUInt8Array(), startingFromAddress: 0xC010)
+        cpu2.memory.loadProg(with: "A2 00 CA".toUInt8Array(), startingFromAddress: 0x0010)
         cpu2.reset()
         cpu2.runCycle()
         cpu2.runCycle()
-        cpu2.runCycle()
-        cpu2.a.printRepresentation()
+        cpu2.x.printRepresentation()
+        cpu2.p.printRepresentation()
     }
 
 

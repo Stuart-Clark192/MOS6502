@@ -201,35 +201,67 @@ extension CPU {
     
     //Register
     func TAX() {
-        print("TAX Not implemented yet")
+        x = a
+        setFlag(.N, for: Int(x))
+        setFlag(.Z, for: Int(x))
     }
     
     func TXA() {
-        print("TXA Not implemented yet")
+        a = x
+        setFlag(.N, for: Int(a))
+        setFlag(.Z, for: Int(a))
     }
     
     func DEX() {
-        print("DEX Not implemented yet")
+        if x == 0 {
+            x = 0xFF
+            setFlag(.N, true)
+            setFlag(.Z, for: Int(x))
+        } else {
+            x -= 1
+            setFlag(.N, for: Int(x))
+            setFlag(.Z, for: Int(x))
+        }
     }
     
     func INX() {
-        print("INX Not implemented yet")
+        if x == 0xFF {
+            x = 0
+        }
+        setFlag(.N, for: Int(x))
+        setFlag(.Z, for: Int(x))
     }
     
     func TAY() {
-        print("TAY Not implemented yet")
+        y = a
+        setFlag(.N, for: Int(y))
+        setFlag(.Z, for: Int(y))
     }
     
     func TYA() {
-        print("TYA Not implemented yet")
+        a = y
+        setFlag(.N, for: Int(a))
+        setFlag(.Z, for: Int(a))
     }
     
     func DEY() {
-        print("DEY Not implemented yet")
+        if y == 0 {
+            y = 0xFF
+            setFlag(.N, true)
+            setFlag(.Z, for: Int(y))
+        } else {
+            y -= 1
+            setFlag(.N, for: Int(y))
+            setFlag(.Z, for: Int(y))
+        }
     }
     
     func INY() {
-        print("INY Not implemented yet")
+        if y == 0xFF {
+            y = 0
+        }
+        setFlag(.N, for: Int(y))
+        setFlag(.Z, for: Int(y))
     }
     
     func ROL() {
@@ -254,13 +286,12 @@ extension CPU {
     
     func STA() {
         a.printRepresentation()
-        print("Memory address we are setting to is ")
         memoryAddress.printRepresentation()
         memory.write(location: memoryAddress, data: a)
     }
     
     func TXS() {
-        print("TXS Not implemented yet")
+        
     }
     
     func TSX() {

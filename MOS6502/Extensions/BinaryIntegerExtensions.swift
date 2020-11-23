@@ -25,7 +25,7 @@ extension BinaryInteger {
         print("Binary Test", self.binaryDescription)
 //        print("Binary:  ",String(self, radix: 2).leftPad(to: 8, using: "0"))
         print("Decimal: ",String(self).leftPad(to: 8))
-        print("Hex:     ",String(self, radix: 16).leftPad(to: 8))
+        print("Hex:     ",String(self, radix: 16, uppercase: true).leftPad(to: 8))
         print()
     }
 }

@@ -21,7 +21,7 @@ class CPU {
     var pc: UInt16 = 0
     
     // Stack Pointer
-    var s: UInt8 = 0
+    var s: UInt8 = 0xFD
     
     // Status Register
     var p: UInt8 = 0
@@ -86,6 +86,26 @@ class CPU {
         }
     }
     
+    internal func setFlag(_ flag: StatusFlag, _ value: Bool) {
+        switch flag {
+
+        case .N:
+            p |= (value ? 1 : 0) << 7
+        case .V:
+            p |= 1 << 6
+        case .D:
+            p |= 1 << 3
+        case .I:
+            p |= 1 << 2
+        case .Z:
+            p |= (value ? 1 : 0) << 1
+        case .C:
+            p |= value ? 1 : 0
+        default:
+            break
+        }
+    }
+    
     func reset() {
         
         pc = UInt16.combine(lowByte: memory.read(location: 0xFFFC), highByte: memory.read(location: 0xFFFD))
@@ -99,6 +119,7 @@ class CPU {
     func runCycle() {
         
         calculationSum = 0
+        p = 0b00110000
         let instr = get()
         
         let tableInstr = instructions.first {
@@ -112,8 +133,11 @@ class CPU {
         }
         
         if let instrToExecute = correctlyAddressedInstr, let tableInstr = tableInstr {
-            print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode)")
+            
             getInstrValueFromMemory(addressMode: instrToExecute.mode)
+            
+            print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode), memory value \(memoryFetchedValue)")
+            
             tableInstr.executionBlock()
         }
     }
