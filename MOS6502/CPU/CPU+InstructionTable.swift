@@ -218,11 +218,10 @@ extension CPU {
         ], flagsAffected: [.N, .Z], description: "INC (INCrement memory)", executionBlock: incExecution))
         
         // PRAGMA MARK: JMP (JuMP)
-        // TODO: Need indirect - confirm though
         let jmpExecution = { self.JMP() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .absolute,  syntax: "JMP $4400",   hexCode: 0x4C, len: 3, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .indirect,  syntax: "JMP $4400",   hexCode: 0x4C, len: 3, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "JMP (JuMP)", executionBlock: jmpExecution))
         
         // PRAGMA MARK: JSR (Jump to SubRoutine)

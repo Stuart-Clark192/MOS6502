@@ -36,6 +36,8 @@
 		176364672564382900E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */; };
 		17636469256567F100E81FB1 /* CPU+InstructionImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */; };
 		1763646A2565691700E81FB1 /* CPU+InstructionImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */; };
+		17BC6AC7256AD14400811876 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BC6AC6256AD14400811876 /* StringExtensions.swift */; };
+		17BC6AC8256AD24300811876 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BC6AC6256AD14400811876 /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,7 @@
 		176364592564380B00E81FB1 /* MOS6502PlaygroundSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOS6502PlaygroundSupport.h; sourceTree = "<group>"; };
 		1763645A2564380B00E81FB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+InstructionImplementation.swift"; sourceTree = "<group>"; };
+		17BC6AC6256AD14400811876 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +197,7 @@
 				1763643C25613E1C00E81FB1 /* BinaryIntegerExtensions.swift */,
 				1763643E25613E6900E81FB1 /* UInt16Extensions.swift */,
 				17636450256427D200E81FB1 /* UInt8Extensions.swift */,
+				17BC6AC6256AD14400811876 /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -422,6 +426,7 @@
 				1763644425613F4300E81FB1 /* CPU.swift in Sources */,
 				1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
 				17636451256427D200E81FB1 /* UInt8Extensions.swift in Sources */,
+				17BC6AC7256AD14400811876 /* StringExtensions.swift in Sources */,
 				1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */,
 				1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */,
@@ -454,6 +459,7 @@
 				176364672564382900E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
 				176364622564382100E81FB1 /* CPU+Addressing.swift in Sources */,
 				176364632564382400E81FB1 /* Memory.swift in Sources */,
+				17BC6AC8256AD24300811876 /* StringExtensions.swift in Sources */,
 				176364652564382900E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763646A2565691700E81FB1 /* CPU+InstructionImplementation.swift in Sources */,
 				176364642564382900E81FB1 /* UInt16Extensions.swift in Sources */,

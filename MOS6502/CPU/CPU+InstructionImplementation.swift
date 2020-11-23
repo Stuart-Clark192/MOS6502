@@ -11,23 +11,41 @@ extension CPU {
     
     func getInstrValueFromMemory(addressMode: InstructionMode) {
         
+        var cyclesUsed:UInt8 = 0
+        
         switch addressMode {
         
         case .accumulator:
-            accumulatorData()
+            cyclesUsed = accumulatorData()
         
         case .immediate:
-            immediateData()
+            cyclesUsed = immediateData()
             
         case .zeroPage:
-            zeroPageData()
+            cyclesUsed = zeroPageData()
             
         case .zeroPageX:
-            zeroXPageData()
+            cyclesUsed = zeroXPageData()
         
-        default:
-            print("Not implemented Yet")
-            memoryreadValue = 0
+        case .zeroPageY:
+            cyclesUsed = zeroYPageData()
+        case .absolute:
+            cyclesUsed = absoluteData()
+        case .absoluteX:
+            cyclesUsed = absoluteXData()
+        case .absoluteY:
+            cyclesUsed = absoluteYData()
+        case .indirectX:
+            cyclesUsed = indirectXData()
+        case .indirectY:
+            cyclesUsed = indirectYData()
+        case .implied:
+            print("Nothing implemented yet")
+        case .relative:
+            cyclesUsed = relativeData()
+            
+        case .indirect:
+            cyclesUsed = indirectData()
         }
     }
     
@@ -235,7 +253,10 @@ extension CPU {
     }
     
     func STA() {
-        print("STA Not implemented yet")
+        a.printRepresentation()
+        print("Memory address we are setting to is ")
+        memoryAddress.printRepresentation()
+        memory.write(location: memoryAddress, data: a)
     }
     
     func TXS() {
@@ -263,11 +284,11 @@ extension CPU {
     }
     
     func STX() {
-        print("STX Not implemented yet")
+        memory.write(location: memoryAddress, data: x)
     }
     
     func STY() {
-        print("STY Not implemented yet")
+        memory.write(location: memoryAddress, data: y)
     }
     
 }

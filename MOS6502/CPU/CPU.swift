@@ -45,7 +45,8 @@ class CPU {
     var memory: Memory
     var calculationSum: Int = 0
     var memoryFetchedValue: UInt8 = 0
-    var memoryreadValue: UInt8 = 0
+    var memoryReadValue: UInt8 = 0
+    var memoryAddress: UInt16 = 0
     
     init(with memory: Memory) {
         self.memory = memory
@@ -54,6 +55,10 @@ class CPU {
     
     func peek() -> UInt8 {
         memory.read(location: pc)
+    }
+    
+    func peek(location: UInt16) -> UInt8 {
+        memory.read(location: location)
     }
     
     func get() -> UInt8 {
@@ -81,26 +86,6 @@ class CPU {
         }
     }
     
-//    internal func setFlag(_ flag: StatusFlag) {
-//        switch flag {
-//
-//        case .N:
-//            p |= ((a & 0x80) != 0 ? 1 : 0) << 7
-//        case .V:
-//            p |= 1 << 6
-//        case .D:
-//            p |= 1 << 3
-//        case .I:
-//            p |= 1 << 2
-//        case .Z:
-//            p |= (a == 0 ? 1 : 0) << 1
-//        case .C:
-//            p |= calculationSum > 0xFF ? 1 : 0
-//        default:
-//            break
-//        }
-//    }
-    
     func reset() {
         
         pc = UInt16.combine(lowByte: memory.read(location: 0xFFFC), highByte: memory.read(location: 0xFFFD))
@@ -108,7 +93,7 @@ class CPU {
         a = 0
         x = 0
         y = 0
-        
+        p = 0b00110000
     }
     
     func runCycle() {

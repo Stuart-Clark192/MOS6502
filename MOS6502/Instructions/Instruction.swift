@@ -20,6 +20,7 @@ enum InstructionMode {
     case implied
     case accumulator
     case relative
+    case indirect
 }
 
 struct InstructionDetails {
