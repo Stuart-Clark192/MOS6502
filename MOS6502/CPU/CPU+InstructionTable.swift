@@ -221,7 +221,8 @@ extension CPU {
         let jmpExecution = { self.JMP() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .indirect,  syntax: "JMP $4400",   hexCode: 0x4C, len: 3, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .absolute,  syntax: "JMP $4400",   hexCode: 0x4C, len: 3, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0),
+            InstructionDetails(mode: .indirect,  syntax: "JMP $4400",   hexCode: 0x6C, len: 3, cycles: 5, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "JMP (JuMP)", executionBlock: jmpExecution))
         
         // PRAGMA MARK: JSR (Jump to SubRoutine)

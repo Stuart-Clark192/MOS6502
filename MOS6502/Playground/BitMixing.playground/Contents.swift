@@ -407,7 +407,6 @@ cpu2.runCycle()
 cpu2.runCycle()
 cpu2.a.printRepresentation()
 
-cpu2.memory.dumpMem()
 
 
 printHeaderFor(example: "Dex from memory program load")
@@ -440,13 +439,110 @@ cpu2.runCycle()
 cpu2.x.printRepresentation()
 cpu2.p.printRepresentation()
 
-let tt: UInt8 = 0xFF
-let ee: UInt8 = tt << 1
+
+printHeaderFor(example: "CMP from memory program load")
+
+/*
+ LDA #$10
+ CMP #$10
+
+ */
+
+cpu2.memory.loadProg(with: "a9 10 c9 10".toUInt8Array(), startingFromAddress: 0x0010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
 
 
-func bitSetInt(data: UInt8, pos: UInt8) -> Bool {
-    (data & (1 << pos)) != 0
-}
+printHeaderFor(example: "DEC from memory program load")
 
-let tyy:UInt8 = 0b10000000
-let isSet = bitSetInt(data: tyy, pos: 7)
+/*
+ LDX #$0
+ STX $44
+ DEC $44
+
+ */
+
+cpu2.memory.loadProg(with: "a2 00 86 44 c6 44".toUInt8Array(), startingFromAddress: 0x0010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
+
+cpu2.memory.dumpMem()
+
+
+printHeaderFor(example: "EOR from memory program load")
+
+/*
+ LDA #$10
+ EOR #$44
+
+ */
+
+cpu2.memory.loadProg(with: "a9 10 49 44".toUInt8Array(), startingFromAddress: 0x0010)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
+
+printHeaderFor(example: "JMP from memory program load")
+
+/*
+ LDX #$00
+ INX
+ JMP $0602
+
+ */
+
+cpu2.memory.loadProg(with: "a2 00 e8 4c 02 06".toUInt8Array(), startingFromAddress: 0x0600)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.x.printRepresentation()
+
+printHeaderFor(example: "ADD from memory program load")
+
+/*
+ CLC
+ LDA #$FF
+ ADC #$05
+
+ */
+
+cpu2.memory.loadProg(with: "18 a9 ff 69 05".toUInt8Array(), startingFromAddress: 0x0600)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
+
+printHeaderFor(example: "BIT from memory program load")
+
+/*
+ LDA #$FF
+ LDX #$FF
+ STX $44
+ BIT $44
+
+ */
+
+cpu2.memory.loadProg(with: "a9 10 a2 10 86 44 24 44".toUInt8Array(), startingFromAddress: 0x0600)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()

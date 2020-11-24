@@ -51,15 +51,23 @@ class Memory {
         
         var memoryAddress = startingFromAddress
         let strideLength = 16
-        let pageLength: UInt16 = 16
+        let pageLength: UInt16 = 40
         
         for page in stride(from: memoryAddress, to: memoryAddress + (pageLength * UInt16(strideLength)), by: strideLength) {
             var outputString = String(format:"%04llX", page)
+            var characterString = ""
             //print(outputString)
             for memLocation in page...page + UInt16(strideLength - 1) {
-                outputString += String(format:" %02llX", read(location: memLocation))
+                let value = read(location: memLocation)
+                outputString += String(format:" %02llX", value)
+                
+                if value >= 32 && value < 127 {
+                    characterString += " \(UnicodeScalar(value))"
+                } else {
+                    characterString += " ."
+                }
             }
-            print(outputString)
+            print(outputString + characterString)
         }
         
         

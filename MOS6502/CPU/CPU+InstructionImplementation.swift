@@ -50,7 +50,15 @@ extension CPU {
     }
     
     func ADC() {
-        print("ADC Not implemented yet")
+        // Operates on the accumulator
+        let value = UInt16(memoryFetchedValue) + UInt16(a)
+        if value > 0xff {
+            setFlag(.C, true)
+        }
+        
+        a = value.lowByte()
+        setFlag(.N, for: Int(a))
+        setFlag(.Z, for: Int(a))
     }
     
     func AND() {
@@ -79,7 +87,14 @@ extension CPU {
     }
     
     func BIT() {
-        print("BIT Not implemented yet")
+        //This does not seem correct quite yet
+        var value = UInt16(memoryFetchedValue)
+        value &= UInt16(a)
+        value.printRepresentation()
+        setFlag(.Z, for: Int(value))
+        setFlag(.N, value.bitSetInt(pos: 7) ? true : false)
+        setFlag(.V, value.bitSetInt(pos: 6) ? true : false)
+        
     }
     
     func BPL() {
@@ -115,63 +130,94 @@ extension CPU {
     }
     
     func BRK() {
-        print("BEQ Not implemented yet")
+        pc += 1
     }
     
     func CMP() {
-        print("CMP Not implemented yet")
+        // If the value in the accumulator is equal or greater than the compared value, the Carry will be set.
+        // The equal (Z) and negative (N) flags will be set based on equality or lack thereof and the sign (i.e. A>=$80) of the accumulator.
+        
+        setFlag(.C, a >= memoryFetchedValue ? true : false)
+        setFlag(.Z, a == memoryFetchedValue ? true : false)
+        setFlag(.N, a >= 0x80 ? true : false)
     }
     
     func CPX() {
-        print("CPX Not implemented yet")
+        
+        setFlag(.C, x >= memoryFetchedValue ? true : false)
+        setFlag(.Z, x == memoryFetchedValue ? true : false)
+        setFlag(.N, x >= 0x80 ? true : false)
     }
     
     func CPY() {
-        print("CPY Not implemented yet")
+        
+        setFlag(.C, y >= memoryFetchedValue ? true : false)
+        setFlag(.Z, y == memoryFetchedValue ? true : false)
+        setFlag(.N, y >= 0x80 ? true : false)
     }
     
     func DEC() {
-        print("DEC Not implemented yet")
+        var value = memoryFetchedValue
+        if value == 0 {
+            value = 0xFF
+            setFlag(.N, true)
+            setFlag(.Z, for: Int(value))
+        } else {
+            value -= 1
+            setFlag(.N, for: Int(value))
+            setFlag(.Z, for: Int(value))
+        }
+        memory.write(location: memoryAddress, data: value)
     }
     
     func EOR() {
-        print("EOR Not implemented yet")
+        // Exclusive-OR Memory with Accumulator
+        
+        a ^= memoryFetchedValue
+        setFlag(.N, for: Int(a))
+        setFlag(.Z, for: Int(a))
     }
     
     func CLC() {
-        print("CLC Not implemented yet")
+        setFlag(.C, false)
     }
     
     func SEC() {
-        print("SEC Not implemented yet")
+        setFlag(.C, true)
     }
     
     func CLI() {
-        print("CLI Not implemented yet")
+        setFlag(.I, false)
     }
     
     func SEI() {
-        print("SEI Not implemented yet")
+        setFlag(.I, true)
     }
     
     func CLV() {
-        print("CLV Not implemented yet")
+        setFlag(.V, false)
     }
     
     func CLD() {
-        print("CLD Not implemented yet")
+        setFlag(.D, false)
     }
     
     func SED() {
-        print("SED Not implemented yet")
+        setFlag(.D, true)
     }
     
     func INC() {
-        print("INC Not implemented yet")
+        var value = memoryFetchedValue
+        if value == 0xFF {
+            value = 0
+        }
+        setFlag(.N, for: Int(value))
+        setFlag(.Z, for: Int(value))
+        memory.write(location: memoryAddress, data: value)
     }
     
     func JMP() {
-        print("JMP Not implemented yet")
+        pc = memoryAddress
     }
     
     func JSR() {
@@ -208,7 +254,6 @@ extension CPU {
     }
     
     func NOP() {
-        print("Nothing to do")
         // TODO: Once we have the cycles implemented this will count towards the cycle count
     }
     
@@ -244,6 +289,8 @@ extension CPU {
     func INX() {
         if x == 0xFF {
             x = 0
+        } else {
+            x += 1
         }
         setFlag(.N, for: Int(x))
         setFlag(.Z, for: Int(x))
