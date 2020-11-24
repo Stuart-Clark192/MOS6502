@@ -28,4 +28,9 @@ extension BinaryInteger {
         print("Hex:     ",String(self, radix: 16, uppercase: true).leftPad(to: 8))
         print()
     }
+    
+    func bitSetInt(pos: UInt8) -> Bool {
+        guard pos < self.bitWidth else { return false }
+        return (self & (1 << pos)) != 0
+    }
 }

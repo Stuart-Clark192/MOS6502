@@ -54,11 +54,28 @@ extension CPU {
     }
     
     func AND() {
-        print("AND Not implemented yet")
+        a &= memoryFetchedValue
+        
+        setFlag(.N, for: Int(a))
+        setFlag(.Z, for: Int(a))
     }
     
     func ASL() {
-        print("ASL Not implemented yet")
+        var value = memoryFetchedValue
+        if value.bitSetInt(pos: 7) {
+            setFlag(.C, true)
+        }
+        value = value << 1
+        
+        if (currentInstrMode == .accumulator) {
+            a = value
+            setFlag(.N, for: Int(a))
+            setFlag(.Z, for: Int(a))
+        } else {
+            memory.write(location: memoryAddress, data: value)
+            setFlag(.N, for: Int(value))
+            setFlag(.Z, for: Int(value))
+        }
     }
     
     func BIT() {

@@ -47,6 +47,7 @@ class CPU {
     var memoryFetchedValue: UInt8 = 0
     var memoryReadValue: UInt8 = 0
     var memoryAddress: UInt16 = 0
+    var currentInstrMode: InstructionMode = .immediate
     
     init(with memory: Memory) {
         self.memory = memory
@@ -133,6 +134,8 @@ class CPU {
         }
         
         if let instrToExecute = correctlyAddressedInstr, let tableInstr = tableInstr {
+            
+            currentInstrMode = instrToExecute.mode
             
             getInstrValueFromMemory(addressMode: instrToExecute.mode)
             

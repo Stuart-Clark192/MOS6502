@@ -440,3 +440,13 @@ cpu2.runCycle()
 cpu2.x.printRepresentation()
 cpu2.p.printRepresentation()
 
+let tt: UInt8 = 0xFF
+let ee: UInt8 = tt << 1
+
+
+func bitSetInt(data: UInt8, pos: UInt8) -> Bool {
+    (data & (1 << pos)) != 0
+}
+
+let tyy:UInt8 = 0b10000000
+let isSet = bitSetInt(data: tyy, pos: 7)
