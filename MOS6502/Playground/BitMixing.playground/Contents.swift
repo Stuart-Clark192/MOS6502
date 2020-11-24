@@ -538,7 +538,7 @@ printHeaderFor(example: "BIT from memory program load")
 
  */
 
-cpu2.memory.loadProg(with: "a9 10 a2 10 86 44 24 44".toUInt8Array(), startingFromAddress: 0x0600)
+cpu2.memory.loadProg(with: "a9 ff a2 ff 86 44 24 44".toUInt8Array(), startingFromAddress: 0x0600)
 cpu2.reset()
 cpu2.runCycle()
 cpu2.runCycle()

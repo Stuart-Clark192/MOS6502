@@ -87,14 +87,12 @@ extension CPU {
     }
     
     func BIT() {
-        //This does not seem correct quite yet
         var value = UInt16(memoryFetchedValue)
         value &= UInt16(a)
         value.printRepresentation()
         setFlag(.Z, for: Int(value))
-        setFlag(.N, value.bitSetInt(pos: 7) ? true : false)
-        setFlag(.V, value.bitSetInt(pos: 6) ? true : false)
-        
+        setFlag(.N, memoryFetchedValue.bitSetInt(pos: 7) ? true : false)
+        setFlag(.V, memoryFetchedValue.bitSetInt(pos: 6) ? true : false)
     }
     
     func BPL() {

@@ -93,11 +93,11 @@ class CPU {
         case .N:
             p |= (value ? 1 : 0) << 7
         case .V:
-            p |= 1 << 6
+            p |= (value ? 1 : 0) << 6
         case .D:
-            p |= 1 << 3
+            p |= (value ? 1 : 0) << 3
         case .I:
-            p |= 1 << 2
+            p |= (value ? 1 : 0) << 2
         case .Z:
             p |= (value ? 1 : 0) << 1
         case .C:
