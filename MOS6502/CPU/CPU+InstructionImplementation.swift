@@ -5,6 +5,8 @@
 //  Created by Stuart on 18/11/2020.
 //
 
+// Another instruction reference http://www.obelisk.me.uk/6502/reference.html
+
 import Foundation
 
 extension CPU {
@@ -52,9 +54,8 @@ extension CPU {
     func ADC() {
         // Operates on the accumulator
         let value = UInt16(memoryFetchedValue) + UInt16(a)
-        if value > 0xff {
-            setFlag(.C, true)
-        }
+
+        setFlag(.C, value > 0xff)
         
         a = value.lowByte()
         setFlag(.N, for: Int(a))
@@ -128,7 +129,7 @@ extension CPU {
     }
     
     func BRK() {
-        pc += 1
+        // Nothing to do
     }
     
     func CMP() {
@@ -247,16 +248,30 @@ extension CPU {
     }
     
     func LSR() {
-        print("LSR Not implemented")
-        var valueToShift = memoryFetchedValue
+        
+        setFlag(.C, memoryFetchedValue.bitSetInt(pos: 7) ? true : false)
+        memoryFetchedValue = memoryFetchedValue >> 1
+        if (currentInstrMode == .accumulator) {
+            a = memoryFetchedValue
+            setFlag(.N, for: Int(a))
+            setFlag(.Z, for: Int(a))
+        } else {
+            memory.write(location: memoryAddress, data: memoryFetchedValue)
+            setFlag(.N, for: Int(memoryFetchedValue))
+            setFlag(.Z, for: Int(memoryFetchedValue))
+        }
     }
     
     func NOP() {
         // TODO: Once we have the cycles implemented this will count towards the cycle count
+        // Other than that nothing to do
     }
     
     func ORA() {
-        print("ORA Not implemented yet")
+        a |= memoryFetchedValue
+        
+        setFlag(.N, for: Int(a))
+        setFlag(.Z, for: Int(a))
     }
     
     //Register
@@ -327,11 +342,42 @@ extension CPU {
     }
     
     func ROL() {
-        print("ROL Not implemented yet")
+        
+        let topBitSet = memoryFetchedValue.bitSetInt(pos: 7)
+        let carrySet = p.bitSetInt(pos: 0)
+        
+        memoryFetchedValue = memoryFetchedValue << 1
+        memoryFetchedValue |= carrySet ? 1 : 0
+        setFlag(.C, topBitSet)
+        
+        if (currentInstrMode == .accumulator) {
+            a = memoryFetchedValue
+            setFlag(.N, for: Int(a))
+            setFlag(.Z, for: Int(a))
+        } else {
+            memory.write(location: memoryAddress, data: memoryFetchedValue)
+            setFlag(.N, for: Int(memoryFetchedValue))
+            setFlag(.Z, for: Int(memoryFetchedValue))
+        }
     }
     
     func ROR() {
-        print("ROR Not implemented yet")
+        let bottomBitSet = memoryFetchedValue.bitSetInt(pos: 0)
+        let carrySet = p.bitSetInt(pos: 0)
+        
+        memoryFetchedValue = memoryFetchedValue >> 1
+        memoryFetchedValue |= carrySet ? 1 : 0
+        setFlag(.C, bottomBitSet)
+        
+        if (currentInstrMode == .accumulator) {
+            a = memoryFetchedValue
+            setFlag(.N, for: Int(a))
+            setFlag(.Z, for: Int(a))
+        } else {
+            memory.write(location: memoryAddress, data: memoryFetchedValue)
+            setFlag(.N, for: Int(memoryFetchedValue))
+            setFlag(.Z, for: Int(memoryFetchedValue))
+        }
     }
     
     func RTI() {
@@ -347,33 +393,65 @@ extension CPU {
     }
     
     func STA() {
-        a.printRepresentation()
-        memoryAddress.printRepresentation()
         memory.write(location: memoryAddress, data: a)
     }
     
     func TXS() {
-        
+        // (Transfer X to Stack ptr)
+        s = x
     }
     
     func TSX() {
-        print("TSX Not implemented yet")
+        // (Transfer Stack ptr to X)
+        x = s
     }
     
     func PHA() {
-        print("PHA Not implemented yet")
+        // (PusH Accumulator)
+        let stackMemoryLocation = UInt16(s) + 0x100
+        memory.write(location: stackMemoryLocation, data: a)
+        
+        if s == 0 {
+            s = 0xFF
+        } else {
+            s -= 1
+        }
     }
     
     func PLA() {
-        print("PLA Not implemented yet")
+        // (PuLl Accumulator)
+        if s == 0xFF {
+            s = 0
+        } else {
+            s += 1
+        }
+        
+        let stackMemoryLocation = UInt16(s) + 0x100
+        a = memory.read(location: stackMemoryLocation)
     }
     
     func PHP() {
-        print("PHP Not implemented yet")
+        // (PusH Processor status)
+        let stackMemoryLocation = UInt16(s) + 0x100
+        memory.write(location: stackMemoryLocation, data: p)
+        
+        if s == 0 {
+            s = 0xFF
+        } else {
+            s -= 1
+        }
     }
     
     func PLP() {
-        print("PLP Not implemented yet")
+        // (PuLl Processor status)
+        if s == 0xFF {
+            s = 0
+        } else {
+            s += 1
+        }
+        
+        let stackMemoryLocation = UInt16(s) + 0x100
+        p = memory.read(location: stackMemoryLocation)
     }
     
     func STX() {

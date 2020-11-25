@@ -21,7 +21,7 @@ class CPU {
     var pc: UInt16 = 0
     
     // Stack Pointer
-    var s: UInt8 = 0xFD
+    var s: UInt8 = 0xFF
     
     // Status Register
     var p: UInt8 = 0
@@ -71,7 +71,7 @@ class CPU {
         switch flag {
 
         case .N:
-            p |= ((value & 0x80) != 0 ? 1 : 0) << 7
+            p |= ((value & 0x80) == 1 ? 1 : 0) << 7
         case .V:
             p |= 1 << 6
         case .D:
@@ -110,7 +110,7 @@ class CPU {
     func reset() {
         
         pc = UInt16.combine(lowByte: memory.read(location: 0xFFFC), highByte: memory.read(location: 0xFFFD))
-        s = 0xFD
+        s = 0xFF
         a = 0
         x = 0
         y = 0
@@ -120,7 +120,6 @@ class CPU {
     func runCycle() {
         
         calculationSum = 0
-        p = 0b00110000
         let instr = get()
         
         let tableInstr = instructions.first {

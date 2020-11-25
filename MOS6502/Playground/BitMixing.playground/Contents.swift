@@ -546,3 +546,163 @@ cpu2.runCycle()
 cpu2.runCycle()
 cpu2.a.printRepresentation()
 cpu2.p.printRepresentation()
+
+printHeaderFor(example: "BRK from memory program load")
+
+/*
+ BRK
+
+ */
+
+cpu2.memory.loadProg(with: "00".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.pc.printRepresentation()
+
+
+printHeaderFor(example: "ORA from memory program load")
+
+/*
+ LDA #$01
+ ORA #$02
+
+ */
+
+cpu2.memory.loadProg(with: "a9 01 09 02".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+
+printHeaderFor(example: "LSR from memory program load")
+
+/*
+ LDA #$FF
+ LSR A
+
+ */
+
+cpu2.memory.loadProg(with: "a9 ff 4a".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
+
+
+printHeaderFor(example: "ROL from memory program load")
+
+/*
+ LDA #$FF
+ ROL A
+
+ */
+
+cpu2.memory.loadProg(with: "a9 ff 2a".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
+
+
+printHeaderFor(example: "ROR from memory program load")
+
+/*
+ LDA #$FF
+ ROR A
+
+ */
+
+cpu2.memory.loadProg(with: "a9 00 6a".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+cpu2.runCycle()
+cpu2.a.printRepresentation()
+cpu2.p.printRepresentation()
+
+printHeaderFor(example: "TXS and TSX from memory program load")
+
+/*
+ LDX #$10
+ TXS
+
+ */
+
+cpu2.memory.loadProg(with: "a9 0a a2 0b 9a a2 00 ba".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+print("** A **")
+cpu2.a.printRepresentation()
+cpu2.runCycle()
+print("** X **")
+cpu2.x.printRepresentation()
+cpu2.runCycle()
+print("** S **")
+cpu2.s.printRepresentation()
+cpu2.runCycle()
+print("** X **")
+cpu2.s.printRepresentation()
+cpu2.runCycle()
+print("** X **")
+cpu2.x.printRepresentation()
+
+
+printHeaderFor(example: "PHA and PLA from memory program load")
+
+/*
+ LDX #$10
+ PHA
+
+ */
+
+cpu2.memory.loadProg(with: "a9 0a 48 a9 00 68".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle()
+print("** A **")
+cpu2.a.printRepresentation()
+cpu2.runCycle()
+print("** S **")
+cpu2.s.printRepresentation()
+cpu2.runCycle()
+print("** A **")
+cpu2.a.printRepresentation()
+cpu2.runCycle()
+print("** A **")
+cpu2.a.printRepresentation()
+
+printHeaderFor(example: "PHP and PLP from memory program load")
+
+/*
+ LDA #$FF
+ ADC #$05
+ PHP
+ LDA #$01
+ ADC #$05
+ PLP
+
+ */
+
+cpu2.memory.loadProg(with: "a9 ff 69 05 08 a9 01 69 05 28".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.runCycle() // LDA
+print("** A **")
+cpu2.a.printRepresentation()
+cpu2.runCycle() // ADC
+print("** P **")
+cpu2.p.printRepresentation()
+cpu2.runCycle() // PHP
+print("** P **")
+cpu2.p.printRepresentation()
+cpu2.runCycle() // LDA
+print("** A **")
+cpu2.a.printRepresentation()
+cpu2.runCycle() // ADC
+print("** P **")
+cpu2.p.printRepresentation()
+cpu2.runCycle() // PHP
+print("** P **")
+cpu2.p.printRepresentation()
