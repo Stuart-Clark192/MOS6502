@@ -8,7 +8,7 @@
 import Foundation
 
 /* Currently working from the information on https://www.masswerk.at/6502/6502_instruction_set.html
-   And also http://www.6502.org/tutorials/6502opcodes.html which was used for the timing tables
+ And also http://www.6502.org/tutorials/6502opcodes.html which was used for the timing tables
  
  */
 
@@ -48,6 +48,7 @@ class CPU {
     var memoryReadValue: UInt8 = 0
     var memoryAddress: UInt16 = 0
     var currentInstrMode: InstructionMode = .immediate
+    var fetchedInstruction: UInt8 = 0x00
     
     init(with memory: Memory) {
         self.memory = memory
@@ -69,9 +70,10 @@ class CPU {
     
     internal func setFlag(_ flag: StatusFlag, for value: Int) {
         switch flag {
-
+        
         case .N:
-            p |= ((value & 0x80) == 1 ? 1 : 0) << 7
+            //p |= ((value & 0x80) == 1 ? 1 : 0) << 7
+            p = p.setBit(pos: 7, to: (value & 0x80) == 1)
         case .V:
             p |= 1 << 6
         case .D:
@@ -79,9 +81,11 @@ class CPU {
         case .I:
             p |= 1 << 2
         case .Z:
-            p |= (value == 0 ? 1 : 0) << 1
+//            p |= (value == 0 ? 1 : 0) << 1
+            p = p.setBit(pos: 1, to: value == 0)
         case .C:
-            p |= value > 0xFF ? 1 : 0
+//            p |= value > 0xFF ? 1 : 0
+            p = p.setBit(pos: 0, to: value > 0xFF)
         default:
             break
         }
@@ -89,21 +93,41 @@ class CPU {
     
     internal func setFlag(_ flag: StatusFlag, _ value: Bool) {
         switch flag {
-
+        
         case .N:
-            p |= (value ? 1 : 0) << 7
+            p = p.setBit(pos: 7, to: value)
         case .V:
-            p |= (value ? 1 : 0) << 6
+            p = p.setBit(pos: 6, to: value)
         case .D:
-            p |= (value ? 1 : 0) << 3
+            p = p.setBit(pos: 3, to: value)
         case .I:
-            p |= (value ? 1 : 0) << 2
+            p = p.setBit(pos: 2, to: value)
         case .Z:
-            p |= (value ? 1 : 0) << 1
+            p = p.setBit(pos: 1, to: value)
         case .C:
-            p |= value ? 1 : 0
+            p = p.setBit(pos: 0, to: value)
         default:
             break
+        }
+    }
+    
+    internal func isFlagSet(_ flag: StatusFlag) -> Bool {
+        switch flag {
+        
+        case .N:
+            return p.isBitSet(pos: 7)
+        case .V:
+            return p.isBitSet(pos: 6)
+        case .D:
+            return p.isBitSet(pos: 3)
+        case .I:
+            return p.isBitSet(pos: 2)
+        case .Z:
+            return p.isBitSet(pos: 1)
+        case .C:
+            return p.isBitSet(pos: 0)
+        default:
+            return false
         }
     }
     
@@ -115,21 +139,22 @@ class CPU {
         x = 0
         y = 0
         p = 0b00110000
+        fetchedInstruction = 0x00
     }
     
     func runCycle() {
         
         calculationSum = 0
-        let instr = get()
+        fetchedInstruction = get()
         
         let tableInstr = instructions.first {
             $0.details.first {
-                $0.hexCode == instr
+                $0.hexCode == fetchedInstruction
             } != nil
         }
         
         let correctlyAddressedInstr = tableInstr?.details.first {
-            $0.hexCode == instr
+            $0.hexCode == fetchedInstruction
         }
         
         if let instrToExecute = correctlyAddressedInstr, let tableInstr = tableInstr {
@@ -141,6 +166,39 @@ class CPU {
             print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode), memory value \(memoryFetchedValue)")
             
             tableInstr.executionBlock()
+        }
+    }
+    
+    func run() {
+        
+        calculationSum = 0
+        fetchedInstruction = get()
+        
+        while fetchedInstruction != 0x00 {
+            
+            
+            let tableInstr = instructions.first {
+                $0.details.first {
+                    $0.hexCode == fetchedInstruction
+                } != nil
+            }
+            
+            let correctlyAddressedInstr = tableInstr?.details.first {
+                $0.hexCode == fetchedInstruction
+            }
+            
+            if let instrToExecute = correctlyAddressedInstr, let tableInstr = tableInstr {
+                
+                currentInstrMode = instrToExecute.mode
+                
+                getInstrValueFromMemory(addressMode: instrToExecute.mode)
+                
+                print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode), memory value \(memoryFetchedValue)")
+                
+                tableInstr.executionBlock()
+            }
+            calculationSum = 0
+            fetchedInstruction = get()
         }
     }
 }

@@ -22,4 +22,17 @@ extension UInt8 {
         
         return relative
     }
+    
+    func setBit (pos: UInt, to value: Bool) -> UInt8 {
+        guard pos < self.bitWidth else { return 0 }
+        
+        if value {
+            
+            return self | 1 << pos
+        } else {
+        
+            let mask: UInt8 = (~(1 << pos))
+            return ( self & mask )
+        }
+    }
 }

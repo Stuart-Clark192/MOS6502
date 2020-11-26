@@ -73,6 +73,8 @@ extension CPU {
     
     func relativeData() -> UInt8 {
         
+        // Relative data is used by the branch instructions and is relative to the current program counter
+        
         memoryAddress = pc
         memoryFetchedValue = memory.read(location: pc)
         pc += 1

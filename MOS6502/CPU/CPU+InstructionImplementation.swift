@@ -71,7 +71,7 @@ extension CPU {
     
     func ASL() {
         var value = memoryFetchedValue
-        if value.bitSetInt(pos: 7) {
+        if value.isBitSet(pos: 7) {
             setFlag(.C, true)
         }
         value = value << 1
@@ -92,8 +92,8 @@ extension CPU {
         value &= UInt16(a)
         value.printRepresentation()
         setFlag(.Z, for: Int(value))
-        setFlag(.N, memoryFetchedValue.bitSetInt(pos: 7) ? true : false)
-        setFlag(.V, memoryFetchedValue.bitSetInt(pos: 6) ? true : false)
+        setFlag(.N, memoryFetchedValue.isBitSet(pos: 7) ? true : false)
+        setFlag(.V, memoryFetchedValue.isBitSet(pos: 6) ? true : false)
     }
     
     func BPL() {
@@ -121,7 +121,18 @@ extension CPU {
     }
     
     func BNE() {
-        print("BNE Not implemented yet")
+        var test = memoryFetchedValue
+        var isNegativeJump = test.isBitSet(pos: 7)
+        var newTest = test.setBit(pos: 7, to: false)
+        var then = abs(newTest.toInt8())
+        
+        if !isFlagSet(.Z) {
+            if isNegativeJump {
+                pc -= UInt16(then)
+            } else {
+                pc += UInt16(then)
+            }
+        }
     }
     
     func BEQ() {
@@ -249,7 +260,7 @@ extension CPU {
     
     func LSR() {
         
-        setFlag(.C, memoryFetchedValue.bitSetInt(pos: 7) ? true : false)
+        setFlag(.C, memoryFetchedValue.isBitSet(pos: 7) ? true : false)
         memoryFetchedValue = memoryFetchedValue >> 1
         if (currentInstrMode == .accumulator) {
             a = memoryFetchedValue
@@ -343,8 +354,8 @@ extension CPU {
     
     func ROL() {
         
-        let topBitSet = memoryFetchedValue.bitSetInt(pos: 7)
-        let carrySet = p.bitSetInt(pos: 0)
+        let topBitSet = memoryFetchedValue.isBitSet(pos: 7)
+        let carrySet = p.isBitSet(pos: 0)
         
         memoryFetchedValue = memoryFetchedValue << 1
         memoryFetchedValue |= carrySet ? 1 : 0
@@ -362,8 +373,8 @@ extension CPU {
     }
     
     func ROR() {
-        let bottomBitSet = memoryFetchedValue.bitSetInt(pos: 0)
-        let carrySet = p.bitSetInt(pos: 0)
+        let bottomBitSet = memoryFetchedValue.isBitSet(pos: 0)
+        let carrySet = p.isBitSet(pos: 0)
         
         memoryFetchedValue = memoryFetchedValue >> 1
         memoryFetchedValue |= carrySet ? 1 : 0

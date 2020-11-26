@@ -29,7 +29,7 @@ extension BinaryInteger {
         print()
     }
     
-    func bitSetInt(pos: UInt8) -> Bool {
+    func isBitSet(pos: UInt8) -> Bool {
         guard pos < self.bitWidth else { return false }
         return (self & (1 << pos)) != 0
     }
