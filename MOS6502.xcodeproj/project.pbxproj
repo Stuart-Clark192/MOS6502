@@ -38,6 +38,8 @@
 		176364672564382900E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763643A25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift */; };
 		17636469256567F100E81FB1 /* CPU+InstructionImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */; };
 		1763646A2565691700E81FB1 /* CPU+InstructionImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */; };
+		1783951525708C2A0025D826 /* CPU+Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173112CB2570863E00B3E5B1 /* CPU+Branch.swift */; };
+		1783951A25708C320025D826 /* CPU+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173112C52570833800B3E5B1 /* CPU+Stack.swift */; };
 		17BC6AC7256AD14400811876 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BC6AC6256AD14400811876 /* StringExtensions.swift */; };
 		17BC6AC8256AD24300811876 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BC6AC6256AD14400811876 /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
@@ -473,12 +475,14 @@
 				176364602564381B00E81FB1 /* CPU+InstructionTable.swift in Sources */,
 				1763645F2564381800E81FB1 /* Instruction.swift in Sources */,
 				176364672564382900E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
+				1783951525708C2A0025D826 /* CPU+Branch.swift in Sources */,
 				176364622564382100E81FB1 /* CPU+Addressing.swift in Sources */,
 				176364632564382400E81FB1 /* Memory.swift in Sources */,
 				17BC6AC8256AD24300811876 /* StringExtensions.swift in Sources */,
 				176364652564382900E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763646A2565691700E81FB1 /* CPU+InstructionImplementation.swift in Sources */,
 				176364642564382900E81FB1 /* UInt16Extensions.swift in Sources */,
+				1783951A25708C320025D826 /* CPU+Stack.swift in Sources */,
 				176364612564381E00E81FB1 /* CPU.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

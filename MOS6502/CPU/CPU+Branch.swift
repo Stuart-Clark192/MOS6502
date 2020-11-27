@@ -10,16 +10,14 @@ import Foundation
 extension CPU {
     
     func branchIfFlag(flag: StatusFlag, is value: Bool) {
-        var test = memoryFetchedValue
-        var isNegativeJump = test.isBitSet(pos: 7)
-        var newTest = test.setBit(pos: 7, to: false)
-        var then = abs(newTest.toInt8())
+        let isNegativeJump = memoryFetchedValue.isBitSet(pos: 7)
+        let offset = abs(memoryFetchedValue.setBit(pos: 7, to: false).toInt8())
         
         if isFlagSet(flag) == value {
             if isNegativeJump {
-                pc -= UInt16(then)
+                pc -= UInt16(offset)
             } else {
-                pc += UInt16(then)
+                pc += UInt16(offset)
             }
         }
     }
