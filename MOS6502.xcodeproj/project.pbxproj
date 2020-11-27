@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		173112C62570833800B3E5B1 /* CPU+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173112C52570833800B3E5B1 /* CPU+Stack.swift */; };
+		173112CC2570863E00B3E5B1 /* CPU+Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173112CB2570863E00B3E5B1 /* CPU+Branch.swift */; };
 		1763640A25613B4F00E81FB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763640925613B4F00E81FB1 /* AppDelegate.swift */; };
 		1763640C25613B4F00E81FB1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763640B25613B4F00E81FB1 /* SceneDelegate.swift */; };
 		1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1763640D25613B4F00E81FB1 /* ContentView.swift */; };
@@ -58,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		173112C52570833800B3E5B1 /* CPU+Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+Stack.swift"; sourceTree = "<group>"; };
+		173112CB2570863E00B3E5B1 /* CPU+Branch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+Branch.swift"; sourceTree = "<group>"; };
 		1763640625613B4F00E81FB1 /* MOS6502.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOS6502.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1763640925613B4F00E81FB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1763640B25613B4F00E81FB1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		173112C0256FDAFF00B3E5B1 /* App setup */ = {
+			isa = PBXGroup;
+			children = (
+				1763640925613B4F00E81FB1 /* AppDelegate.swift */,
+				1763640B25613B4F00E81FB1 /* SceneDelegate.swift */,
+			);
+			path = "App setup";
+			sourceTree = "<group>";
+		};
 		176363FD25613B4F00E81FB1 = {
 			isa = PBXGroup;
 			children = (
@@ -147,14 +160,13 @@
 		1763640825613B4F00E81FB1 /* MOS6502 */ = {
 			isa = PBXGroup;
 			children = (
+				173112C0256FDAFF00B3E5B1 /* App setup */,
 				1763644D256170C300E81FB1 /* MOS6502.entitlements */,
 				176364492561410400E81FB1 /* Playground */,
 				1763644625613F9300E81FB1 /* Instructions */,
 				1763644525613F8300E81FB1 /* CPU */,
 				1763644025613F0D00E81FB1 /* Memory */,
 				1763643925613D9A00E81FB1 /* Extensions */,
-				1763640925613B4F00E81FB1 /* AppDelegate.swift */,
-				1763640B25613B4F00E81FB1 /* SceneDelegate.swift */,
 				1763640D25613B4F00E81FB1 /* ContentView.swift */,
 				1763640F25613B5000E81FB1 /* Assets.xcassets */,
 				1763641425613B5000E81FB1 /* LaunchScreen.storyboard */,
@@ -217,6 +229,8 @@
 				1763644325613F4300E81FB1 /* CPU.swift */,
 				1763644E2561B7E200E81FB1 /* CPU+Addressing.swift */,
 				17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */,
+				173112C52570833800B3E5B1 /* CPU+Stack.swift */,
+				173112CB2570863E00B3E5B1 /* CPU+Branch.swift */,
 			);
 			path = CPU;
 			sourceTree = "<group>";
@@ -427,6 +441,8 @@
 				1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
 				17636451256427D200E81FB1 /* UInt8Extensions.swift in Sources */,
 				17BC6AC7256AD14400811876 /* StringExtensions.swift in Sources */,
+				173112C62570833800B3E5B1 /* CPU+Stack.swift in Sources */,
+				173112CC2570863E00B3E5B1 /* CPU+Branch.swift in Sources */,
 				1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */,
 				1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */,

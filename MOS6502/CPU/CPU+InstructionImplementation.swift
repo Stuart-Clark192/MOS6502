@@ -51,6 +51,11 @@ extension CPU {
         }
     }
     
+    func setNZFlagsFor(value: UInt8) {
+        setFlag(.N, for: Int(value))
+        setFlag(.Z, for: Int(value))
+    }
+    
     func ADC() {
         // Operates on the accumulator
         let value = UInt16(memoryFetchedValue) + UInt16(a)
@@ -58,15 +63,12 @@ extension CPU {
         setFlag(.C, value > 0xff)
         
         a = value.lowByte()
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     func AND() {
         a &= memoryFetchedValue
-        
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     func ASL() {
@@ -78,12 +80,10 @@ extension CPU {
         
         if (currentInstrMode == .accumulator) {
             a = value
-            setFlag(.N, for: Int(a))
-            setFlag(.Z, for: Int(a))
+            setNZFlagsFor(value: a)
         } else {
             memory.write(location: memoryAddress, data: value)
-            setFlag(.N, for: Int(value))
-            setFlag(.Z, for: Int(value))
+            setNZFlagsFor(value: value)
         }
     }
     
@@ -97,46 +97,35 @@ extension CPU {
     }
     
     func BPL() {
-        print("BPL Not implemented yet")
+        branchIfFlag(flag: .N, is: false)
     }
     
     func BMI() {
-        print("BMI Not implemented yet")
+        branchIfFlag(flag: .N, is: true)
     }
     
     func BVC() {
-        print("BVC Not implemented yet")
+        branchIfFlag(flag: .V, is: false)
     }
     
     func BVS() {
-        print("BVS Not implemented yet")
+        branchIfFlag(flag: .V, is: true)
     }
     
     func BCC() {
-        print("BCC Not implemented yet")
+        branchIfFlag(flag: .C, is: false)
     }
     
     func BCS() {
-        print("BCS Not implemented yet")
+        branchIfFlag(flag: .C, is: true)
     }
     
     func BNE() {
-        var test = memoryFetchedValue
-        var isNegativeJump = test.isBitSet(pos: 7)
-        var newTest = test.setBit(pos: 7, to: false)
-        var then = abs(newTest.toInt8())
-        
-        if !isFlagSet(.Z) {
-            if isNegativeJump {
-                pc -= UInt16(then)
-            } else {
-                pc += UInt16(then)
-            }
-        }
+        branchIfFlag(flag: .Z, is: false)
     }
     
     func BEQ() {
-        print("BEQ Not implemented yet")
+        branchIfFlag(flag: .Z, is: true)
     }
     
     func BRK() {
@@ -174,8 +163,7 @@ extension CPU {
             setFlag(.Z, for: Int(value))
         } else {
             value -= 1
-            setFlag(.N, for: Int(value))
-            setFlag(.Z, for: Int(value))
+            setNZFlagsFor(value: value)
         }
         memory.write(location: memoryAddress, data: value)
     }
@@ -184,8 +172,7 @@ extension CPU {
         // Exclusive-OR Memory with Accumulator
         
         a ^= memoryFetchedValue
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     func CLC() {
@@ -221,41 +208,42 @@ extension CPU {
         if value == 0xFF {
             value = 0
         }
-        setFlag(.N, for: Int(value))
-        setFlag(.Z, for: Int(value))
+        setNZFlagsFor(value: value)
         memory.write(location: memoryAddress, data: value)
     }
     
     func JMP() {
+        // Need to account for the 6502 bug on page boundry
         pc = memoryAddress
     }
     
     func JSR() {
-        print("JSR Not implemented yet")
+        // push the return address onto the stack
+        pc -= 1
+        pushStack(value: pc.highByte())
+        pushStack(value: pc.lowByte())
+        pc = memoryAddress
     }
     
     func LDA() {
         a = memoryFetchedValue
         
         // Set flags
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     func LDX() {
         x = memoryFetchedValue
         
         // Set flags
-        setFlag(.N, for: Int(x))
-        setFlag(.Z, for: Int(x))
+        setNZFlagsFor(value: x)
     }
     
     func LDY() {
         y = memoryFetchedValue
         
         // Set flags
-        setFlag(.N, for: Int(y))
-        setFlag(.Z, for: Int(y))
+        setNZFlagsFor(value: y)
     }
     
     func LSR() {
@@ -264,12 +252,10 @@ extension CPU {
         memoryFetchedValue = memoryFetchedValue >> 1
         if (currentInstrMode == .accumulator) {
             a = memoryFetchedValue
-            setFlag(.N, for: Int(a))
-            setFlag(.Z, for: Int(a))
+            setNZFlagsFor(value: a)
         } else {
             memory.write(location: memoryAddress, data: memoryFetchedValue)
-            setFlag(.N, for: Int(memoryFetchedValue))
-            setFlag(.Z, for: Int(memoryFetchedValue))
+            setNZFlagsFor(value: memoryFetchedValue)
         }
     }
     
@@ -280,22 +266,18 @@ extension CPU {
     
     func ORA() {
         a |= memoryFetchedValue
-        
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     //Register
     func TAX() {
         x = a
-        setFlag(.N, for: Int(x))
-        setFlag(.Z, for: Int(x))
+        setNZFlagsFor(value: x)
     }
     
     func TXA() {
         a = x
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     func DEX() {
@@ -305,8 +287,7 @@ extension CPU {
             setFlag(.Z, for: Int(x))
         } else {
             x -= 1
-            setFlag(.N, for: Int(x))
-            setFlag(.Z, for: Int(x))
+            setNZFlagsFor(value: x)
         }
     }
     
@@ -316,20 +297,17 @@ extension CPU {
         } else {
             x += 1
         }
-        setFlag(.N, for: Int(x))
-        setFlag(.Z, for: Int(x))
+        setNZFlagsFor(value: x)
     }
     
     func TAY() {
         y = a
-        setFlag(.N, for: Int(y))
-        setFlag(.Z, for: Int(y))
+        setNZFlagsFor(value: y)
     }
     
     func TYA() {
         a = y
-        setFlag(.N, for: Int(a))
-        setFlag(.Z, for: Int(a))
+        setNZFlagsFor(value: a)
     }
     
     func DEY() {
@@ -339,8 +317,7 @@ extension CPU {
             setFlag(.Z, for: Int(y))
         } else {
             y -= 1
-            setFlag(.N, for: Int(y))
-            setFlag(.Z, for: Int(y))
+            setNZFlagsFor(value: y)
         }
     }
     
@@ -348,8 +325,7 @@ extension CPU {
         if y == 0xFF {
             y = 0
         }
-        setFlag(.N, for: Int(y))
-        setFlag(.Z, for: Int(y))
+        setNZFlagsFor(value: y)
     }
     
     func ROL() {
@@ -363,12 +339,10 @@ extension CPU {
         
         if (currentInstrMode == .accumulator) {
             a = memoryFetchedValue
-            setFlag(.N, for: Int(a))
-            setFlag(.Z, for: Int(a))
+            setNZFlagsFor(value: a)
         } else {
             memory.write(location: memoryAddress, data: memoryFetchedValue)
-            setFlag(.N, for: Int(memoryFetchedValue))
-            setFlag(.Z, for: Int(memoryFetchedValue))
+            setNZFlagsFor(value: memoryFetchedValue)
         }
     }
     
@@ -382,21 +356,25 @@ extension CPU {
         
         if (currentInstrMode == .accumulator) {
             a = memoryFetchedValue
-            setFlag(.N, for: Int(a))
-            setFlag(.Z, for: Int(a))
+            setNZFlagsFor(value: a)
         } else {
             memory.write(location: memoryAddress, data: memoryFetchedValue)
-            setFlag(.N, for: Int(memoryFetchedValue))
-            setFlag(.Z, for: Int(memoryFetchedValue))
+            setNZFlagsFor(value: memoryFetchedValue)
         }
     }
     
     func RTI() {
-        print("RTI Not implemented yet")
+        // The RTI instruction is used at the end of an interrupt processing routine. It pulls the processor flags from the stack followed by the program counter.
+        p = popStack()
+        
+        // Pull the program counter
+        pc = UInt16.combine(lowByte: popStack(), highByte: popStack())
+        pc += 1
     }
     
     func RTS() {
-        print("RTS Not implemented yet")
+        pc = UInt16.combine(lowByte: popStack(), highByte: popStack())
+        pc += 1
     }
     
     func SBC() {
@@ -419,50 +397,21 @@ extension CPU {
     
     func PHA() {
         // (PusH Accumulator)
-        let stackMemoryLocation = UInt16(s) + 0x100
-        memory.write(location: stackMemoryLocation, data: a)
-        
-        if s == 0 {
-            s = 0xFF
-        } else {
-            s -= 1
-        }
+        pushStack(value: a)
     }
     
     func PLA() {
         // (PuLl Accumulator)
-        if s == 0xFF {
-            s = 0
-        } else {
-            s += 1
-        }
-        
-        let stackMemoryLocation = UInt16(s) + 0x100
-        a = memory.read(location: stackMemoryLocation)
+        a = popStack()
     }
     
     func PHP() {
         // (PusH Processor status)
-        let stackMemoryLocation = UInt16(s) + 0x100
-        memory.write(location: stackMemoryLocation, data: p)
-        
-        if s == 0 {
-            s = 0xFF
-        } else {
-            s -= 1
-        }
+        pushStack(value: p)
     }
     
     func PLP() {
-        // (PuLl Processor status)
-        if s == 0xFF {
-            s = 0
-        } else {
-            s += 1
-        }
-        
-        let stackMemoryLocation = UInt16(s) + 0x100
-        p = memory.read(location: stackMemoryLocation)
+        p = popStack()
     }
     
     func STX() {

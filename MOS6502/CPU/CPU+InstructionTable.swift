@@ -229,7 +229,7 @@ extension CPU {
         let jsrExecution = { self.JSR() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .absolute,  syntax: "JSR $4400",   hexCode: 0x4C, len: 3, cycles: 6, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .absolute,  syntax: "JSR $4400",   hexCode: 0x20, len: 3, cycles: 6, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "JSR (Jump to SubRoutine)", executionBlock: jsrExecution))
         
         // PRAGMA MARK: LDA (Load Accumulator)
