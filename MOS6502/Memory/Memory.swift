@@ -49,14 +49,12 @@ class Memory {
     
     func dumpMem(startingFromAddress: UInt16 = 0) {
         
-        var memoryAddress = startingFromAddress
         let strideLength = 16
         let pageLength: UInt16 = 40
         
-        for page in stride(from: memoryAddress, to: memoryAddress + (pageLength * UInt16(strideLength)), by: strideLength) {
+        for page in stride(from: startingFromAddress, to: startingFromAddress + (pageLength * UInt16(strideLength)), by: strideLength) {
             var outputString = String(format:"%04llX", page)
             var characterString = ""
-            //print(outputString)
             for memLocation in page...page + UInt16(strideLength - 1) {
                 let value = read(location: memLocation)
                 outputString += String(format:" %02llX", value)

@@ -31,13 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func runtest() {
-        var mem = Memory(memorySize: 65535)
-        var cpu2 = CPU(with: mem)
+        let mem = Memory(memorySize: 65535)
+        let cpu2 = CPU(with: mem)
         cpu2.memory.loadProg(with: "20 09 06 20 0c 06 20 12 06 a2 00 60 e8 e0 05 d0 fb 60 00".toUInt8Array(), startingFromAddress: 0x0600)
         cpu2.reset()
         cpu2.run()
         cpu2.p.printRepresentation()
         cpu2.x.printRepresentation()
+        cpu2.memory.dumpMem(startingFromAddress: 0x0600)
     }
 
 
