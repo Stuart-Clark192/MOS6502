@@ -31,14 +31,17 @@ extension CPU {
         
         memoryAddress = pc
         memoryFetchedValue = memory.read(location: pc)
+        fetchedInstructionBytes.append(memoryFetchedValue)
         pc += 1
         return 0
     }
     
     func zeroPageData() -> UInt8 {
         let dataReadLocation = memory.read(location: pc)
+        fetchedInstructionBytes.append(dataReadLocation)
         memoryAddress = UInt16(dataReadLocation & 0x00FF) // Remember the memory is holding 8 bit values but is 16 bit addresses so we need to &
         memoryFetchedValue = memory.read(location: memoryAddress)
+        
         pc += 1
         return 0
     }
@@ -46,6 +49,7 @@ extension CPU {
     func zeroXPageData() -> UInt8 {
         
         let dataReadLocation = memory.read(location: pc)
+        fetchedInstructionBytes.append(dataReadLocation)
         var absAddr = UInt16(x) + UInt16(dataReadLocation)
         
         if absAddr > 0xFF {
@@ -60,6 +64,7 @@ extension CPU {
     func zeroYPageData() -> UInt8 {
         
         let dataReadLocation = memory.read(location: pc)
+        fetchedInstructionBytes.append(dataReadLocation)
         var absAddr = UInt16(y) + UInt16(dataReadLocation)
         
         if absAddr > 0xFF {
@@ -77,6 +82,7 @@ extension CPU {
         
         memoryAddress = pc
         memoryFetchedValue = memory.read(location: pc)
+        fetchedInstructionBytes.append(memoryFetchedValue)
         pc += 1
         return 0
     }
@@ -84,8 +90,10 @@ extension CPU {
     func absoluteData() -> UInt8 {
         
         let lowByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(lowByte)
         pc += 1
         let highByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(highByte)
         
         memoryAddress = UInt16.combine(lowByte: lowByte, highByte: highByte)
         memoryFetchedValue = memory.read(location: memoryAddress)
@@ -96,8 +104,10 @@ extension CPU {
     func absoluteXData() -> UInt8 {
      
         let lowByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(lowByte)
         pc += 1
         let highByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(highByte)
         
         memoryAddress = UInt16.combine(lowByte: lowByte, highByte: highByte) + UInt16(x)
         memoryFetchedValue = memory.read(location: memoryAddress)
@@ -108,8 +118,10 @@ extension CPU {
     func absoluteYData() -> UInt8 {
    
         let lowByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(lowByte)
         pc += 1
         let highByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(highByte)
         
         memoryAddress = UInt16.combine(lowByte: lowByte, highByte: highByte) + UInt16(y)
         memoryFetchedValue = memory.read(location: memoryAddress)
@@ -125,8 +137,10 @@ extension CPU {
         // Get the pointer address
         
         let lowByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(lowByte)
         pc += 1
         let highByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(highByte)
         
         //Get the address the pointer points to
         let pointerAddress = UInt16.combine(lowByte: lowByte, highByte: highByte)
@@ -143,6 +157,7 @@ extension CPU {
         
        
         let dataReadLocation = memory.read(location: pc)
+        fetchedInstructionBytes.append(dataReadLocation)
         var absAddr = UInt16(x) + UInt16(dataReadLocation)
         
         if absAddr > 0xFF {
@@ -160,6 +175,7 @@ extension CPU {
     
     func indirectYData() -> UInt8 {
         let locationOfFirstByte = memory.read(location: pc)
+        fetchedInstructionBytes.append(locationOfFirstByte)
         let targetAddressLowByte = memory.read(location: UInt16(locationOfFirstByte))
         let targetAddressHighByte = memory.read(location: UInt16(locationOfFirstByte) + 1)
         

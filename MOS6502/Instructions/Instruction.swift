@@ -28,7 +28,7 @@ struct InstructionDetails {
     let syntax: String
     let hexCode: UInt8
     let len: Int
-    let cycles: Int
+    let cycles: UInt8
     let requiresAdditionalCycles: Bool
     let cyclesToAdd: Int
 }

@@ -67,7 +67,31 @@ class Memory {
             }
             print(outputString + characterString)
         }
+    }
+    
+    func dumpMemStr(startingFromAddress: UInt16 = 0) -> [String] {
         
+        let strideLength = 16
+        let pageLength: UInt16 = 20
+        var memoryDump: [String] = []
         
+        let toAddress = startingFromAddress + (pageLength * UInt16(strideLength)) <= memSize - 1 ? startingFromAddress + (pageLength * UInt16(strideLength)) : memSize - 1
+        
+        for page in stride(from: startingFromAddress, to: toAddress, by: strideLength) {
+            var outputString = String(format:"%04llX", page)
+            var characterString = ""
+            for memLocation in page...page + UInt16(strideLength - 1) {
+                let value = read(location: memLocation)
+                outputString += String(format:" %02llX", value)
+                
+                if value >= 32 && value < 127 {
+                    characterString += " \(UnicodeScalar(value))"
+                } else {
+                    characterString += " ."
+                }
+            }
+            memoryDump.append(outputString + characterString)
+        }
+        return memoryDump
     }
 }

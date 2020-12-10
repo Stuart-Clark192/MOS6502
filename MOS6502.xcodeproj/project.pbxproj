@@ -40,8 +40,13 @@
 		1763646A2565691700E81FB1 /* CPU+InstructionImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */; };
 		1783951525708C2A0025D826 /* CPU+Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173112CB2570863E00B3E5B1 /* CPU+Branch.swift */; };
 		1783951A25708C320025D826 /* CPU+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173112C52570833800B3E5B1 /* CPU+Stack.swift */; };
+		178395282570E6300025D826 /* CPU+Disassembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178395272570E6300025D826 /* CPU+Disassembler.swift */; };
+		17839531257139450025D826 /* CPU+Disassembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178395272570E6300025D826 /* CPU+Disassembler.swift */; };
+		17839547257AC3480025D826 /* PrintChar21.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17839546257AC3480025D826 /* PrintChar21.ttf */; };
+		17839548257AC3480025D826 /* PrintChar21.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17839546257AC3480025D826 /* PrintChar21.ttf */; };
 		17BC6AC7256AD14400811876 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BC6AC6256AD14400811876 /* StringExtensions.swift */; };
 		17BC6AC8256AD24300811876 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BC6AC6256AD14400811876 /* StringExtensions.swift */; };
+		17FFB8E5257E91B7000F9991 /* CPUViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFB8E4257E91B7000F9991 /* CPUViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,7 +98,10 @@
 		176364592564380B00E81FB1 /* MOS6502PlaygroundSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOS6502PlaygroundSupport.h; sourceTree = "<group>"; };
 		1763645A2564380B00E81FB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+InstructionImplementation.swift"; sourceTree = "<group>"; };
+		178395272570E6300025D826 /* CPU+Disassembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CPU+Disassembler.swift"; sourceTree = "<group>"; };
+		17839546257AC3480025D826 /* PrintChar21.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PrintChar21.ttf; sourceTree = "<group>"; };
 		17BC6AC6256AD14400811876 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		17FFB8E4257E91B7000F9991 /* CPUViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +170,8 @@
 		1763640825613B4F00E81FB1 /* MOS6502 */ = {
 			isa = PBXGroup;
 			children = (
+				17FFB8E3257E91A6000F9991 /* Views */,
+				17839536257AC2940025D826 /* Fonts */,
 				173112C0256FDAFF00B3E5B1 /* App setup */,
 				1763644D256170C300E81FB1 /* MOS6502.entitlements */,
 				176364492561410400E81FB1 /* Playground */,
@@ -169,7 +179,6 @@
 				1763644525613F8300E81FB1 /* CPU */,
 				1763644025613F0D00E81FB1 /* Memory */,
 				1763643925613D9A00E81FB1 /* Extensions */,
-				1763640D25613B4F00E81FB1 /* ContentView.swift */,
 				1763640F25613B5000E81FB1 /* Assets.xcassets */,
 				1763641425613B5000E81FB1 /* LaunchScreen.storyboard */,
 				1763641725613B5000E81FB1 /* Info.plist */,
@@ -233,6 +242,7 @@
 				17636468256567F100E81FB1 /* CPU+InstructionImplementation.swift */,
 				173112C52570833800B3E5B1 /* CPU+Stack.swift */,
 				173112CB2570863E00B3E5B1 /* CPU+Branch.swift */,
+				178395272570E6300025D826 /* CPU+Disassembler.swift */,
 			);
 			path = CPU;
 			sourceTree = "<group>";
@@ -260,6 +270,23 @@
 				1763645A2564380B00E81FB1 /* Info.plist */,
 			);
 			path = MOS6502PlaygroundSupport;
+			sourceTree = "<group>";
+		};
+		17839536257AC2940025D826 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				17839546257AC3480025D826 /* PrintChar21.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		17FFB8E3257E91A6000F9991 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1763640D25613B4F00E81FB1 /* ContentView.swift */,
+				17FFB8E4257E91B7000F9991 /* CPUViewModel.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1763641625613B5000E81FB1 /* LaunchScreen.storyboard in Resources */,
+				17839547257AC3480025D826 /* PrintChar21.ttf in Resources */,
 				1763641325613B5000E81FB1 /* Preview Assets.xcassets in Resources */,
 				1763641025613B5000E81FB1 /* Assets.xcassets in Resources */,
 			);
@@ -422,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17839548257AC3480025D826 /* PrintChar21.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,12 +471,14 @@
 				1763644425613F4300E81FB1 /* CPU.swift in Sources */,
 				1763643B25613DC400E81FB1 /* RangeReplaceableCollectionExtensions.swift in Sources */,
 				17636451256427D200E81FB1 /* UInt8Extensions.swift in Sources */,
+				17FFB8E5257E91B7000F9991 /* CPUViewModel.swift in Sources */,
 				17BC6AC7256AD14400811876 /* StringExtensions.swift in Sources */,
 				173112C62570833800B3E5B1 /* CPU+Stack.swift in Sources */,
 				173112CC2570863E00B3E5B1 /* CPU+Branch.swift in Sources */,
 				1763643D25613E1C00E81FB1 /* BinaryIntegerExtensions.swift in Sources */,
 				1763640E25613B4F00E81FB1 /* ContentView.swift in Sources */,
 				1763644F2561B7E200E81FB1 /* CPU+Addressing.swift in Sources */,
+				178395282570E6300025D826 /* CPU+Disassembler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17839531257139450025D826 /* CPU+Disassembler.swift in Sources */,
 				176364662564382900E81FB1 /* UInt8Extensions.swift in Sources */,
 				176364602564381B00E81FB1 /* CPU+InstructionTable.swift in Sources */,
 				1763645F2564381800E81FB1 /* Instruction.swift in Sources */,

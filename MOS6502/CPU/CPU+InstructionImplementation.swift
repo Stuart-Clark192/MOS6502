@@ -11,7 +11,7 @@ import Foundation
 
 extension CPU {
     
-    func getInstrValueFromMemory(addressMode: InstructionMode) {
+    func getInstrValueFromMemory(addressMode: InstructionMode) -> UInt8 {
         
         var cyclesUsed:UInt8 = 0
         
@@ -42,13 +42,15 @@ extension CPU {
         case .indirectY:
             cyclesUsed = indirectYData()
         case .implied:
-            print("Nothing implemented yet")
+            break
         case .relative:
             cyclesUsed = relativeData()
             
         case .indirect:
             cyclesUsed = indirectData()
         }
+        
+        return cyclesUsed
     }
     
     func setNZFlagsFor(value: UInt8) {
@@ -57,13 +59,29 @@ extension CPU {
     }
     
     func ADC() {
-        // Operates on the accumulator
-        let value = UInt16(memoryFetchedValue) + UInt16(a)
-
-        setFlag(.C, value > 0xff)
+        // Operates on the accumulator - Accumulator + Value + Carry flag
+        // Need to account for decimal mode as well here!! and set the overflow flag
+        var value: UInt16 = 0
+        var binaryResult = UInt16(memoryFetchedValue) + UInt16(a) + (p.isBitSet(pos: 0) ? 1 : 0)
+        setFlag(.C, binaryResult > 0xff)
+        setNZFlagsFor(value: binaryResult.lowByte())
+            
+        if p.isBitSet(pos: 3) {
+            // Decimal mode -- this part is not correct yet as it is not doing the BCD Carry
+            let memoryBCD = memoryFetchedValue.bcdValue()
+            let aBCD = a.bcdValue()
+            let carry: UInt8 = p.isBitSet(pos: 0) ? 1 : 0
+            
+            value = UInt16(memoryBCD) + UInt16(aBCD) + UInt16(carry)
+            setFlag(.C, value > 99)
+            value.printRepresentation()
+            print("")
+        } else {
+            value = UInt16(memoryFetchedValue) + UInt16(a) + (p.isBitSet(pos: 0) ? 1 : 0)
+            
+        }
         
-        a = value.lowByte()
-        setNZFlagsFor(value: a)
+        a = binaryResult.lowByte()
     }
     
     func AND() {
@@ -379,6 +397,24 @@ extension CPU {
     
     func SBC() {
         print("SBC Not implemented yet")
+        
+        // looking at various forums I shoudl be able to negate the memory value and then run the same implementation that ADC uses
+        
+        // Operates on the accumulator - Accumulator + Value + Carry flag
+        // Need to account for decimal mode as well here!!
+//        var value: UInt16 = 0
+//
+//        if p.isBitSet(pos: 3) {
+//            // Decimal mode
+//            value = UInt16(memoryFetchedValue.bcdValue()) + UInt16(a.bcdValue()) + (p.isBitSet(pos: 0) ? 1 : 0)
+//        } else {
+//           value = UInt16(memoryFetchedValue) + UInt16(a) + (p.isBitSet(pos: 0) ? 1 : 0)
+//        }
+//
+//        setFlag(.C, value > 0xff)
+//
+//        a = value.lowByte()
+//        setNZFlagsFor(value: a)
     }
     
     func STA() {

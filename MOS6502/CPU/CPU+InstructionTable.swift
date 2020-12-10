@@ -109,7 +109,7 @@ extension CPU {
         let brkExecution = { self.BRK() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "BRK",       hexCode: 0x00, len: 1, cycles: 7, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "BRK",       hexCode: 0x00, len: 1, cycles: 7, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "BRK (BReaK)", executionBlock: brkExecution))
         
         
@@ -180,31 +180,31 @@ extension CPU {
         let sedExecution = { self.SED() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "CLC",       hexCode: 0x18, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "CLC",       hexCode: 0x18, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "CLC (CLear Carry)", executionBlock: clcExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "SEC",       hexCode: 0x38, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "SEC",       hexCode: 0x38, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "SEC (SEt Carry)", executionBlock: secExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "CLI",       hexCode: 0x58, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "CLI",       hexCode: 0x58, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "CLI (CLear Interrupt)", executionBlock: cliExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "SEI",       hexCode: 0x78, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "SEI",       hexCode: 0x78, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "SEI (SEt Interrupt)", executionBlock: seiExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "CLV",       hexCode: 0xB8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "CLV",       hexCode: 0xB8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "CLV (CLear oVerflow)", executionBlock: clvExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "CLD",       hexCode: 0xD8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "CLD",       hexCode: 0xD8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "CLD (CLear Decimal)", executionBlock: cldExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "SED",       hexCode: 0xF8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "SED",       hexCode: 0xF8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "SED (SEt Decimal)", executionBlock: sedExecution))
         
         // PRAGMA MARK: INC (INCrement memory)
@@ -284,7 +284,7 @@ extension CPU {
         let nopExecution = { self.NOP() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "NOP",       hexCode: 0xEA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "NOP",       hexCode: 0xEA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "NOP (No OPeration)", executionBlock: nopExecution))
         
         // PRAGMA MARK: ORA (bitwise OR with Accumulator)
@@ -313,35 +313,35 @@ extension CPU {
         let inyExecution = { self.INY() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "TAX",       hexCode: 0xAA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "TAX",       hexCode: 0xAA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "TAX (Transfer A to X)", executionBlock: taxExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "TXA",       hexCode: 0x8A, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "TXA",       hexCode: 0x8A, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "TXA (Transfer X to A)", executionBlock: txaExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "DEX",       hexCode: 0xCA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "DEX",       hexCode: 0xCA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "DEX (DEcrement X)", executionBlock: dexExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "INX",       hexCode: 0xE8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "INX",       hexCode: 0xE8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "INX (INcrement X)", executionBlock: inxExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "TAY",       hexCode: 0xA8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "TAY",       hexCode: 0xA8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "TAY (Transfer A to Y)", executionBlock: tayExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "TYA",       hexCode: 0x98, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "TYA",       hexCode: 0x98, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "TYA (Transfer Y to A)", executionBlock: tyaExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "DEY",       hexCode: 0x88, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "DEY",       hexCode: 0x88, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "DEY (DEcrement Y)", executionBlock: deyExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "INY",       hexCode: 0xc8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "INY",       hexCode: 0xc8, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "INY (INcrement Y)", executionBlock: inyExecution))
         
         
@@ -371,14 +371,14 @@ extension CPU {
         let rtiExecution = { self.RTI() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "RTI",       hexCode: 0x40, len: 1, cycles: 6, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "RTI",       hexCode: 0x40, len: 1, cycles: 6, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "RTI (ReTurn from Interrupt)", executionBlock: rtiExecution))
         
         // PRAGMA MARK: RTS (ReTurn from Subroutine)
         let rtsExecution = { self.RTS() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "RTS",       hexCode: 0x60, len: 1, cycles: 6, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "RTS",       hexCode: 0x60, len: 1, cycles: 6, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "RTI (ReTurn from Interrupt)", executionBlock: rtsExecution))
         
         // PRAGMA MARK: SBC (SuBtract with Carry)
@@ -419,27 +419,27 @@ extension CPU {
         let plpExecution = { self.PLP() }
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "TXS",       hexCode: 0x9A, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "TXS",       hexCode: 0x9A, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "TXS (Transfer X to Stack ptr)", executionBlock: txsExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "TSX",       hexCode: 0xBA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "TSX",       hexCode: 0xBA, len: 1, cycles: 2, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "TSX (Transfer Stack ptr to X)", executionBlock: tsxExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "PHA",       hexCode: 0x48, len: 1, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "PHA",       hexCode: 0x48, len: 1, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "PHA (PusH Accumulator)", executionBlock: phaExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "PLA",       hexCode: 0x68, len: 1, cycles: 4, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "PLA",       hexCode: 0x68, len: 1, cycles: 4, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "PLA (PuLl Accumulator)", executionBlock: plaExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "PHP",       hexCode: 0x08, len: 1, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "PHP",       hexCode: 0x08, len: 1, cycles: 3, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "PHP (PusH Processor status)", executionBlock: phpExecution))
         
         instructions.append(Instruction(details: [
-            InstructionDetails(mode: .accumulator, syntax: "PLP",       hexCode: 0x28, len: 1, cycles: 4, requiresAdditionalCycles: false, cyclesToAdd: 0)
+            InstructionDetails(mode: .implied, syntax: "PLP",       hexCode: 0x28, len: 1, cycles: 4, requiresAdditionalCycles: false, cyclesToAdd: 0)
         ], flagsAffected: [], description: "PLP (PuLl Processor status)", executionBlock: plpExecution))
         
         // PRAGMA MARK: STX (STore X register)

@@ -42,6 +42,8 @@ class CPU {
         pc.lowByte()
     }
     
+    var fetchedInstructionBytes: [UInt8] = []
+    
     var memory: Memory
     var calculationSum: Int = 0
     var memoryFetchedValue: UInt8 = 0
@@ -49,7 +51,10 @@ class CPU {
     var memoryAddress: UInt16 = 0
     var currentInstrMode: InstructionMode = .immediate
     var fetchedInstruction: UInt8 = 0x00
+    var fetchedInstructionAddress: UInt16 = 0x00
     
+    var dissasembly: [String] = []
+ 
     init(with memory: Memory) {
         self.memory = memory
         buildInstructions()
@@ -64,6 +69,7 @@ class CPU {
     }
     
     func get() -> UInt8 {
+        fetchedInstructionAddress = pc
         pc += 1
         return memory.read(location: pc - 1)
     }
@@ -140,12 +146,16 @@ class CPU {
         y = 0
         p = 0b00110000
         fetchedInstruction = 0x00
+        fetchedInstructionBytes = []
+        dissasembly = []
     }
     
     func runCycle() {
         
         calculationSum = 0
         fetchedInstruction = get()
+        
+        fetchedInstructionBytes.append(fetchedInstruction)
         
         let tableInstr = instructions.first {
             $0.details.first {
@@ -161,18 +171,24 @@ class CPU {
             
             currentInstrMode = instrToExecute.mode
             
-            getInstrValueFromMemory(addressMode: instrToExecute.mode)
+            var cycleCost = getInstrValueFromMemory(addressMode: instrToExecute.mode)
+            if currentInstrMode == .implied {
+                cycleCost += instrToExecute.cycles
+            }
             
             print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode), memory value \(memoryFetchedValue)")
             
             tableInstr.executionBlock()
         }
+        
+        fetchedInstructionBytes.removeAll()
     }
     
-    func run() {
+    func run(isDissasembleMode: Bool = false) {
         
         calculationSum = 0
         fetchedInstruction = get()
+        fetchedInstructionBytes.append(fetchedInstruction)
         
         while fetchedInstruction != 0x00 {
             
@@ -193,12 +209,18 @@ class CPU {
                 
                 getInstrValueFromMemory(addressMode: instrToExecute.mode)
                 
-                print("******Executing instruction \(instrToExecute.syntax) with addressing mode \(instrToExecute.mode), memory value \(memoryFetchedValue)")
+                let disassembledCode = printDissasemblyOfInstruction(instrToExecute: instrToExecute)
+                dissasembly.append(disassembledCode)
+                print(disassembledCode)
                 
-                tableInstr.executionBlock()
+                if !isDissasembleMode {
+                    tableInstr.executionBlock()
+                }
             }
             calculationSum = 0
+            fetchedInstructionBytes.removeAll()
             fetchedInstruction = get()
+            fetchedInstructionBytes.append(fetchedInstruction)
         }
     }
 }

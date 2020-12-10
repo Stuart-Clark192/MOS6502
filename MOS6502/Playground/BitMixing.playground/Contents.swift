@@ -689,3 +689,109 @@ printHeaderFor(example: "PHP and PLP from memory program load")
 cpu2.memory.loadProg(with: "a9 ff 69 05 08 a9 01 69 05 28".toUInt8Array(), startingFromAddress: 0x0000)
 cpu2.reset()
 cpu2.run()
+
+// BCD Tests - BCD means that in our 8 bits we are coding a number between 0 to 99
+// ithe the upper digit being stored in the 4 high bits and the lower digit being stored in the lowwer 4 bits
+
+let bcd: UInt8 = 0x28
+bcd.printRepresentation()
+
+
+/*
+     Converts the value to binary coded decimal, where
+     the first nibble is a tens place digit, and the second a
+     ones place digit
+    */
+
+//    func bcdValue(_ value: UInt8) -> UInt8 {
+//        let upper = (value >> 4) & 0xF
+//        let lower = value & 0xF
+//        
+//        return upper * 10 + lower
+//    }
+
+let value: UInt8 = 0x28
+
+let bcd2 = value.bcdValue()
+
+
+
+printHeaderFor(example: "ADC Revisit")
+
+/*
+ CLC
+ LDA #$05
+ ADC #$01
+ ADC #$02
+
+ */
+
+cpu2.memory.loadProg(with: "18 a9 05 69 01 69 02".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.run()
+
+// A should be 0x08 after the above
+cpu2.a.printRepresentation()
+
+cpu2.p.printRepresentation()
+
+
+printHeaderFor(example: "ADC2 Revisit")
+
+/*
+ CLC
+ LDA #$05
+ ADC #$FF
+ ADC #$02
+
+ */
+
+cpu2.memory.loadProg(with: "18 a9 05 69 FF 69 02".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.run()
+
+// A should be 0x07 after the above
+cpu2.a.printRepresentation()
+
+cpu2.p.printRepresentation()
+
+
+printHeaderFor(example: "ADC3 Decimal mode Revisit")
+
+/*
+ CLC
+ SED
+ LDA #$99
+ ADC #$99
+
+ */
+
+cpu2.memory.loadProg(with: "18 f8 a9 99 69 99".toUInt8Array(), startingFromAddress: 0x0000)
+cpu2.reset()
+cpu2.run()
+
+// A should be 0x98 after the above
+cpu2.a.printRepresentation()
+
+cpu2.p.printRepresentation()
+
+
+
+let test: UInt8 = 85
+var test2 = ~test
+test2 += 1
+
+test.printRepresentation()
+test2.printRepresentation()
+
+
+
+
+let line1: UInt8 = 0x18
+line1.printRepresentation()
+let line2: UInt8 = 0x3c
+line2.printRepresentation()
+let line3: UInt8 = 0x66
+line3.printRepresentation()
+let line4: UInt8 = 0x7e
+line4.printRepresentation()
