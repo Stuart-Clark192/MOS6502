@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let mem = Memory(memorySize: 65535)
         let cpu2 = CPU(with: mem)
-        cpu2.memory.loadProg(with: "a9 ff 69 05 08 a9 01 69 05 28".toUInt8Array(), startingFromAddress: 0x0600)
+        cpu2.memory.loadProg(with: "a9 ff 69 05 08 a9 01 69 05 28 8d 10 06".toUInt8Array(), startingFromAddress: 0x0600)
         
         
         cpu2.reset()

@@ -11,43 +11,66 @@ struct ContentView: View {
     @ObservedObject var viewModel: CPUViewModel
     
     var body: some View {
-        
-        HStack {
-            VStack {
-                Text("Memory").font(.custom("PrintChar21", size: 10))
-                    .foregroundColor(.green)
-                    .padding()
-        VStack(alignment: .leading) {
-            ForEach(viewModel.memory, id: \.self) {
-                Text("\($0)")
+        VStack {
+            HStack(alignment: .top) {
+                VStack {
+                    Text("Memory").font(.custom("PrintChar21", size: 10))
+                        .foregroundColor(.green)
+                        .padding()
+                    VStack(alignment: .leading) {
+                        ForEach(viewModel.memory, id: \.self) {
+                            Text("\($0)")
+                        }.font(.custom("PrintChar21", size: 10))
+                        .foregroundColor(.green)
+                        .padding(0.1)
+                        
+                        HStack {
+                            Button("Prev Page"){
+                                viewModel.getNextMemoryBlock(getPrevious: true)
+                            }.buttonStyle(OutlineButton())
+                            
+                            Button("Next Page"){
+                                viewModel.getNextMemoryBlock(getPrevious: false)
+                            }.buttonStyle(OutlineButton())
+                        }
+                    }
+                }.padding()
+                VStack {
+                    Text("Dissasembly").font(.custom("PrintChar21", size: 10))
+                        .foregroundColor(.green)
+                        .padding()
+                    VStack(alignment: .leading) {
+                        
+                        ForEach(viewModel.dissasembly, id: \.self) {
+                            Text("\($0)")
+                        }.font(.custom("PrintChar21", size: 10))
+                        .foregroundColor(.green)
+                        .padding(0.1)
+                        
+                        HStack {
+                            Button("Run"){
+                                viewModel.run()
+                            }.buttonStyle(OutlineButton())
+                            
+                            Button("Step"){
+                                viewModel.step()
+                            }.buttonStyle(OutlineButton())
+                            
+                            Button("Reset"){
+                                viewModel.reset()
+                            }.buttonStyle(OutlineButton())
+                        }
+                    }
+                }.padding()
+            }
+            
+            VStack(alignment: .leading) {
+                Text("Registers").padding(0.1)
+                Text("PC      AC    XR  YR  SR  SP      NV-BDIZC").padding(0.1)
+                Text("\(viewModel.registerString)").padding(0.1)
             }.font(.custom("PrintChar21", size: 10))
             .foregroundColor(.green)
-            .padding(0.1)
-            
-            HStack {
-                Button("Prev Page"){
-                    viewModel.getNextMemoryBlock(getPrevious: true)
-                }.buttonStyle(OutlineButton())
-                
-                Button("Next Page"){
-                    viewModel.getNextMemoryBlock(getPrevious: false)
-                }.buttonStyle(OutlineButton())
-            }
-        }
-            }
-            VStack {
-                Text("Dissasembly").font(.custom("PrintChar21", size: 10))
-                    .foregroundColor(.green)
-                    .padding()
-            VStack(alignment: .leading) {
-                
-                ForEach(viewModel.dissasembly, id: \.self) {
-                    Text("\($0)")
-                }.font(.custom("PrintChar21", size: 10))
-                .foregroundColor(.green)
-                .padding(0.1)
-            }
-            }
+            .padding()
         }
     }
 }
@@ -67,7 +90,7 @@ struct OutlineButton: ButtonStyle {
         configuration
             .label
             .foregroundColor(configuration.isPressed ? .gray : .green)
-            .padding(2)
+            .padding(4)
             .background(
                 RoundedRectangle(
                     cornerRadius: 8,

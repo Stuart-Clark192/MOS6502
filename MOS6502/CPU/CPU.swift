@@ -139,6 +139,7 @@ class CPU {
     
     func reset() {
         
+        memory.reset()
         pc = UInt16.combine(lowByte: memory.read(location: 0xFFFC), highByte: memory.read(location: 0xFFFD))
         s = 0xFF
         a = 0

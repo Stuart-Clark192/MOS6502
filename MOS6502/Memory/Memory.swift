@@ -13,6 +13,8 @@ class Memory {
     
     var memory:[UInt8]
     
+    var bytes: [UInt8] = []
+    
     init(memorySize: UInt16) {
         memSize = memorySize
         memory = Array(repeating: 0x00, count: Int(memorySize))
@@ -32,7 +34,23 @@ class Memory {
         memory = Array(repeating: 0x00, count: Int(memSize))
     }
     
+    func reset() {
+        
+        // Read the current reset vector
+        let lowByte = read(location: 0xFFFC)
+        let highByte = read(location: 0xFFFD)
+        
+        let startAddress = UInt16.combine(lowByte: lowByte, highByte: highByte)
+        
+        clear()
+        
+        loadProg(with: bytes, startingFromAddress: startAddress)
+    }
+    
     func loadProg(with bytes: [UInt8], startingFromAddress: UInt16 = 0) {
+        
+        self.bytes = bytes
+        
         var currentMemoryAddress = startingFromAddress
         
         clear()

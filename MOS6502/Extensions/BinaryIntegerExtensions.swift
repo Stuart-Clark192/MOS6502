@@ -21,6 +21,20 @@ extension BinaryInteger {
             return "0b" + binaryString
         }
     
+    var asHex: String {
+        String(self, radix: 16, uppercase: true)
+    }
+    
+    var asBinary: String {
+        var binaryString = ""
+        var internalNumber = self
+        for _ in (1...self.bitWidth) {
+            binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
+            internalNumber >>= 1
+        }
+        return binaryString
+    }
+    
     func printRepresentation() {
         print("Binary Test", self.binaryDescription)
 //        print("Binary:  ",String(self, radix: 2).leftPad(to: 8, using: "0"))
